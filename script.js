@@ -13,13 +13,23 @@ let playerDirection = 0
 //colours
 neutralGrey = [127, 127, 127]
 pureRed = [255, 0, 0]
-purePink = [255, 0, 255]
+purePink = [200, 0, 255]
 pureBlack = [25, 25, 25]
 //end of colour shortcuts
 
 //classes 
 class block {
-  constructor({floor = 0, knee = 0, shoulder = 0, head = 0, ceiling = 0, northShin = 0, northMid = 0, northFace = 0, northAbove = 0, eastShin = 0, eastMid = 0, eastFace = 0, eastAbove = 0, southShin = 0, southMid = 0, southFace = 0, southAbove = 0, westShin = 0, westMid = 0, westFace = 0, westAbove = 0, floorC = pureBlack, kneeC = purePink, shoulderC = pureBlack, headC = purePink, ceilingC = purePink, northShinC = purePink, northMidC = pureBlack, northFaceC = purePink, northAboveC = pureBlack, eastShinC = purePink, eastMidC = pureBlack, eastFaceC = purePink, eastAboveC = pureBlack, southShinC = purePink, southMidC = pureBlack, southFaceC = purePink, southAboveC = pureBlack, westShinC = purePink, westMidC = pureBlack, westFaceC = purePink, westAboveC = pureBlack}){ //defaults everything to hidden & grey
+  constructor({floor = 0, knee = 0, shoulder = 0, head = 0, ceiling = 0, 
+               northShin = 0, northMid = 0, northFace = 0, northAbove = 0, 
+               eastShin = 0, eastMid = 0, eastFace = 0, eastAbove = 0, 
+               southShin = 0, southMid = 0, southFace = 0, southAbove = 0, 
+               westShin = 0, westMid = 0, westFace = 0, westAbove = 0, 
+               floorC = pureBlack, kneeC = purePink, shoulderC = pureBlack, headC = purePink, ceilingC = purePink, 
+               northShinC = purePink, northMidC = pureBlack, northFaceC = purePink, northAboveC = pureBlack, 
+               eastShinC = purePink, eastMidC = pureBlack, eastFaceC = purePink, eastAboveC = pureBlack, 
+               southShinC = purePink, southMidC = pureBlack, southFaceC = purePink, southAboveC = pureBlack, 
+               westShinC = purePink, westMidC = pureBlack, westFaceC = purePink, westAboveC = pureBlack, 
+               solidNorth = 1, solidEast = 1, solidSouth = 1, solidWest = 1}){ //defaults everything to hidden & grey
     this.floor = floor; this.floorC = floorC
     this.knee = knee; this.kneeC = kneeC
     this.shoulder = shoulder; this.shoulderC = shoulderC
@@ -41,7 +51,7 @@ class block {
     this.westMid = westMid; this.westMidC = westMidC
     this.westFace = westFace; this.westFaceC = westFaceC
     this.westAbove = westAbove; this.westAboveC = westAboveC
-    
+    this.solidNorth = solidNorth; this.solidEast = solidEast; this.solidSouth = solidSouth; this.solidWest = solidWest
   }
 } //the class for blocks of the world
 //end of classes
@@ -58,7 +68,8 @@ fB = new block({
   westShin: 1, westMid: 1, westFace: 1, westAbove: 1
 }) //all walls
 fC = new block({
-  floor: 1, ceiling: 1
+  floor: 1, ceiling: 1,
+  solidNorth: 0, solidEast: 0, solidSouth: 0, solidWest: 0
 }) //just a cieling and floor
 nC = new block({
   northShin: 1
@@ -996,16 +1007,29 @@ function enviroRender(){
 
 //other gameplay functions
 function turn(){
-  if (keyIsDown(LEFT_ARROW)){
+  if (keyIsDown(LEFT_ARROW)) {
     playerDirection -= 1
     if (playerDirection == -1){
       playerDirection = 7
     }
   }
-  if (keyIsDown(RIGHT_ARROW)){
+  if (keyIsDown(RIGHT_ARROW)) {
     playerDirection += 1
     if (playerDirection == 8){
       playerDirection = 0
+    }
+  }
+  if (keyIsDown(87)){
+    switch (playerDirection) {
+      case 0:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+          playerCoords[0] -= 1
+        }
+      case 1:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0){
+          if (currentMap)
+        }
+        break;
     }
   }
 }
@@ -1015,7 +1039,7 @@ function turn(){
 function setup(){
   angleMode(DEGREES)
   textAlign(CENTER, CENTER)
-  canvas = createCanvas(window.innerWidth - 16, window.innerHeight - 20) //896, 504)
+  canvas = createCanvas(window.innerHeight *.9 * 16/9, window.innerHeight *.9) //896, 504)
   canvas.parent('sketch-holder')
   frameRate(10)
 }
@@ -1059,13 +1083,12 @@ function draw(){
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk]
                    ] //loads a map
-      playerCoords = [11, 12]
-      playerDirection = 1
+      playerCoords = [12, 12]
+      playerDirection = 0
       gamePart = 2
       break;
     case 2:
       background([127, 170, 255])
-      console.log(playerDirection)
       enviroRender()
       turn()
       break;
