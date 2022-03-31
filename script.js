@@ -58,8 +58,8 @@ class block {
 
 //block prefabs (to save time with commonly used configs)
 bk = new block({
-  floor: 1, floorC: pureRed,
-  ceiling: 1, ceilingC: neutralGrey
+  //floor: 1, floorC: pureRed,
+  //ceiling: 1, ceilingC: neutralGrey
 }) //unrendered (resource saving for never seen spaces)
 fB = new block({
   northShin: 1, northMid: 1, northFace: 1, northAbove: 1,
@@ -1024,12 +1024,319 @@ function turn(){
       case 0:
         if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
           playerCoords[0] -= 1
-        }
+        } 
+        break; //move north case
       case 1:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0){
-          if (currentMap)
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+          playerCoords[0] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+            playerCoords[1] += 1
+          }
         }
-        break;
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+          playerCoords[1] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+            playerCoords[0] -= 1
+          }
+        }
+        break; //move north-east case
+      case 2:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+          playerCoords[1] += 1
+        }
+        break; //move east case
+      case 3:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+          playerCoords[1] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+            playerCoords[0] += 1
+          }
+        }
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+          playerCoords[0] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+            playerCoords[1] += 1
+          }
+        }
+        break; //move south-east case
+      case 4:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+          playerCoords[0] += 1
+        }
+        break; //move south case
+      case 5:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+          playerCoords[0] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+            playerCoords[1] -= 1
+          }
+        }
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+          playerCoords[1] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+            playerCoords[0] += 1
+          }
+        }
+        break; //move south-west case
+      case 6:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+          playerCoords[1] -= 1
+        }
+        break; //move west case
+      case 7:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+          playerCoords[1] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+            playerCoords[0] -= 1
+          }
+        }
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+          playerCoords[0] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+            playerCoords[1] -= 1
+          }
+        }
+        break; //move north-west case
+    }
+  }
+  else if (keyIsDown(83)){
+    switch (playerDirection) {
+      case 4:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+          playerCoords[0] -= 1
+        } 
+        break; //move north case
+      case 5:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+          playerCoords[0] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+            playerCoords[1] += 1
+          }
+        }
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+          playerCoords[1] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+            playerCoords[0] -= 1
+          }
+        }
+        break; //move north-east case
+      case 6:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+          playerCoords[1] += 1
+        }
+        break; //move east case
+      case 7:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+          playerCoords[1] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+            playerCoords[0] += 1
+          }
+        }
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+          playerCoords[0] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+            playerCoords[1] += 1
+          }
+        }
+        break; //move south-east case
+      case 0:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+          playerCoords[0] += 1
+        }
+        break; //move south case
+      case 1:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+          playerCoords[0] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+            playerCoords[1] -= 1
+          }
+        }
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+          playerCoords[1] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+            playerCoords[0] += 1
+          }
+        }
+        break; //move south-west case
+      case 2:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+          playerCoords[1] -= 1
+        }
+        break; //move west case
+      case 3:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+          playerCoords[1] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+            playerCoords[0] -= 1
+          }
+        }
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+          playerCoords[0] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+            playerCoords[1] -= 1
+          }
+        }
+        break; //move north-west case
+    }
+  }
+  if (keyIsDown(65)){
+    switch (playerDirection) {
+      case 2:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+          playerCoords[0] -= 1
+        } 
+        break; //move north case
+      case 3:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+          playerCoords[0] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+            playerCoords[1] += 1
+          }
+        }
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+          playerCoords[1] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+            playerCoords[0] -= 1
+          }
+        }
+        break; //move north-east case
+      case 4:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+          playerCoords[1] += 1
+        }
+        break; //move east case
+      case 5:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+          playerCoords[1] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+            playerCoords[0] += 1
+          }
+        }
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+          playerCoords[0] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+            playerCoords[1] += 1
+          }
+        }
+        break; //move south-east case
+      case 6:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+          playerCoords[0] += 1
+        }
+        break; //move south case
+      case 7:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+          playerCoords[0] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+            playerCoords[1] -= 1
+          }
+        }
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+          playerCoords[1] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+            playerCoords[0] += 1
+          }
+        }
+        break; //move south-west case
+      case 0:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+          playerCoords[1] -= 1
+        }
+        break; //move west case
+      case 1:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+          playerCoords[1] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+            playerCoords[0] -= 1
+          }
+        }
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+          playerCoords[0] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+            playerCoords[1] -= 1
+          }
+        }
+        break; //move north-west case
+    }
+  }
+  else if (keyIsDown(68)){
+    switch (playerDirection) {
+      case 6:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+          playerCoords[0] -= 1
+        } 
+        break; //move north case
+      case 7:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+          playerCoords[0] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+            playerCoords[1] += 1
+          }
+        }
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+          playerCoords[1] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+            playerCoords[0] -= 1
+          }
+        }
+        break; //move north-east case
+      case 0:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+          playerCoords[1] += 1
+        }
+        break; //move east case
+      case 1:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+          playerCoords[1] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+            playerCoords[0] += 1
+          }
+        }
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+          playerCoords[0] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
+            playerCoords[1] += 1
+          }
+        }
+        break; //move south-east case
+      case 2:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+          playerCoords[0] += 1
+        }
+        break; //move south case
+      case 3:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+          playerCoords[0] += 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+            playerCoords[1] -= 1
+          }
+        }
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+          playerCoords[1] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
+            playerCoords[0] += 1
+          }
+        }
+        break; //move south-west case
+      case 4:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+          playerCoords[1] -= 1
+        }
+        break; //move west case
+      case 5:
+        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+          playerCoords[1] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+            playerCoords[0] -= 1
+          }
+        }
+        else if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
+          playerCoords[0] -= 1
+          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
+            playerCoords[1] -= 1
+          }
+        }
+        break; //move north-west case
     }
   }
 }
@@ -1039,9 +1346,10 @@ function turn(){
 function setup(){
   angleMode(DEGREES)
   textAlign(CENTER, CENTER)
-  canvas = createCanvas(window.innerHeight *.9 * 16/9, window.innerHeight *.9) //896, 504)
+  canvas = createCanvas(1024, 576)//window.innerWidth * .75, window.innerWidth *.75/16*9)//896, 504)
   canvas.parent('sketch-holder')
-  frameRate(10)
+  frameRate(7.5)
+  strokeWeight(1)
 }
 
 function draw(){
@@ -1054,49 +1362,66 @@ function draw(){
       rect(width/100, height/8, width/5, height/10);
       rect(width/100, 2 * height/8, width/5, height/10);
       fill(neutralGrey);
-      text("START", mean([width/100, width/100 + width/5]), mean([height/8, height/8 + height/10, height/10 + height/10]));
+      text('START', mean([width/100, width/100 + width/5]), mean([height/8, height/8 + height/10, height/10 + height/10]));
       break;
     case 1: //loading a level
       background(0)
-      currentMap = [[bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, fC, fC, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, fC, fC, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk]
+      currentMap = [[bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fC, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fC, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, fC, fB, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, fC, fC, fC, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, fB, fC, fC, fC, fC, fC, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fC, fB, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fC, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fC, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk]
                    ] //loads a map
+      for (let i = 0; i < currentMap.length; i++){
+        for (let j = 0; j < currentMap[i].length; j++){
+          currentMap[i][j] = Object.assign({}, currentMap[i][j])
+        }
+      } //runs through the entire map and converts each block from references to prefabs to unique objects
+      currentMap[12][13].northShinC = neutralGrey
+      currentMap[12][13].westMid = 0
+      currentMap[12][13].eastMid = 0
+      currentMap[12][13].westFace = 0
+      currentMap[12][13].eastFace = 0
+      currentMap[13][13].northMid = 1
+      currentMap[12][13].knee = 1
+      currentMap[12][13].head = 1
+      currentMap[13][13].northMidC = neutralGrey
       playerCoords = [12, 12]
       playerDirection = 0
       gamePart = 2
+      textSize(30)
       break;
     case 2:
       background([127, 170, 255])
-      enviroRender()
       turn()
+      enviroRender()
       break;
   }
 }
 
 function mousePressed(){
   if (gamePart == 0){
+    //if (mouseX > )
     gamePart = 1
   }
 }
