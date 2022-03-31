@@ -359,7 +359,7 @@ function enviroRender(){
         }
         if (drawingBlock.head == 1){
           fill(drawingBlock.headC)
-          headTile(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
+          headHeightTile(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
         if (drawingBlock.northAbove == 1){
           fill(drawingBlock.northAboveC)
@@ -445,7 +445,7 @@ function enviroRender(){
         }
         if (drawingBlock.head == 1){
           fill(drawingBlock.headC)
-          headTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+          headHeightTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
         if (drawingBlock.northAbove == 1){
           fill(drawingBlock.northAboveC)
@@ -531,7 +531,7 @@ function enviroRender(){
         }
         if (drawingBlock.head == 1){
           fill(drawingBlock.headC)
-          headTile(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
+          headHeightTile(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
         if (drawingBlock.eastAbove == 1){
           fill(drawingBlock.eastAboveC)
@@ -617,7 +617,7 @@ function enviroRender(){
         }
         if (drawingBlock.head == 1){
           fill(drawingBlock.headC)
-          headTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+          headHeightTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
         if (drawingBlock.eastAbove == 1){
           fill(drawingBlock.eastAboveC)
@@ -703,7 +703,7 @@ function enviroRender(){
         }
         if (drawingBlock.head == 1){
           fill(drawingBlock.headC)
-          headTile(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
+          headHeightTile(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
         if (drawingBlock.southAbove == 1){
           fill(drawingBlock.southAboveC)
@@ -789,7 +789,7 @@ function enviroRender(){
         }
         if (drawingBlock.head == 1){
           fill(drawingBlock.headC)
-          headTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+          headHeightTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
         if (drawingBlock.southAbove == 1){
           fill(drawingBlock.southAboveC)
@@ -875,7 +875,7 @@ function enviroRender(){
         }
         if (drawingBlock.head == 1){
           fill(drawingBlock.headC)
-          headTile(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
+          headHeightTile(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
         if (drawingBlock.westAbove == 1){
           fill(drawingBlock.westAboveC)
@@ -961,7 +961,7 @@ function enviroRender(){
         }
         if (drawingBlock.head == 1){
           fill(drawingBlock.headC) //hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-          headTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+          headHeightTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
         if (drawingBlock.eastAbove == 1){
           fill(drawingBlock.eastAboveC)
