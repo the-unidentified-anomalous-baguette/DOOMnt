@@ -357,14 +357,13 @@ function enviroRender(){
           leftFace(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
         if (drawingBlock.hasEnemy == true){
-          demoImp.drawMe(mean([1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][0]/32, 
-                               1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][0]/32, 
-                               1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][0]/32,
-                               1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][0]/32]), 
-                         mean([576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][1]/18, 
-                               576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][1]/18,
-                               576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][1]/18,
-                               576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][1]/18]), whichBlock[0][i][0])
+          demoImp.drawMe(mean([1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][0]/32, 1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][0]/32, 
+                               1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][0]/32, 1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][0]/32]), 
+                         mean([576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][1]/18, 576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][1]/18,
+                               576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][1]/18, 576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][1]/18]), 
+                         mean([576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][1]))/18, 576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][1]))/18,
+                         576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][1]))/18, 576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][1]))/18])
+                               )
         }
         if (drawingBlock.southFace == 1 && whichBlock[0][i][0] != 5){
           fill(drawingBlock.southFaceC)

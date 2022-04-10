@@ -54,7 +54,7 @@ function setup(){
   canvas.parent('sketch-holder')
   frameRate(5)
   strokeWeight(1)
-  demoImp = new enemy(11, 11, {spriteSheet: devImp}, 42, 61)
+  demoImp = new enemy(11, 11, {spriteSheet: devImp}, 210, 305)
 }
 
 function draw(){

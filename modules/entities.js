@@ -237,10 +237,11 @@ class enemy extends entity{
         this.prevY = y
     }
 
-    drawMe(x, y, playerDist){
+    drawMe(x, y, ceiling){
+      let maxHpcnt = (y - ceiling) * this.renderHeight / 1152 * .01
       image(this.spriteSheet, //image ot be used
-        x - this.renderWidth / 2, y - this.renderHeight, //where to place top-left corner
-        this.renderWidth, this.renderHeight, //how big to draw
+        x - this.renderWidth / 2 * maxHpcnt, y - this.renderHeight * maxHpcnt, //where to place top-left corner
+        this.renderWidth * maxHpcnt, this.renderHeight * maxHpcnt, //how big to draw
         Math.floor(this.frame) * this.spriteWidth, this.direction * this.spriteHeight, //which part of spritesheet to take
         this.spriteWidth, this.spriteHeight) //how big the sprite being used is
       this.frame += 1
