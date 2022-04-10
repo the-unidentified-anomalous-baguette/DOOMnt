@@ -100,132 +100,135 @@ class playerClass{
     if (keyIsDown(87)){
       switch (this.direction) {
         case 0:
-          moveNorth()
-          break; //move north case
+          this.moveNorth()
+          break; //this.move north case
         case 1:
-          moveNorthEast()
-          break; //move north-east case
+          this.moveNorthEast()
+          break; //this.move north-east case
         case 2:
-          moveEast()
-          break; //move east case
+          this.moveEast()
+          break; //this.move east case
         case 3:
-          moveSouthEast()
-          break; //move south-east case
+          this.moveSouthEast()
+          break; //this.move south-east case
         case 4:
-          moveSouth()
-          break; //move south case
+          this.moveSouth()
+          break; //this.move south case
         case 5:
-          moveSouthWest()
-          break; //move south-west case
+          this.moveSouthWest()
+          break; //this.move south-west case
         case 6:
-          moveWest()
-          break; //move west case
+          this.moveWest()
+          break; //this.move west case
         case 7:
-          moveNorthWest()
-          break; //move north-west case
+          this.moveNorthWest()
+          break; //this.move north-west case
       }
     }
     else if (keyIsDown(83)){
       switch (this.direction) {
         case 4:
-          moveNorth()
-          break; //move north case
+          this.moveNorth()
+          break; //this.move north case
         case 5:
-          moveNorthEast()
-          break; //move north-east case
+          this.moveNorthEast()
+          break; //this.move north-east case
         case 6:
-          moveEast()
-          break; //move east case
+          this.moveEast()
+          break; //this.move east case
         case 7:
-          moveSouthEast()
-          break; //move south-east case
+          this.moveSouthEast()
+          break; //this.move south-east case
         case 0:
-          moveSouth()
-          break; //move south case
+          this.moveSouth()
+          break; //this.move south case
         case 1:
-          moveSouthWest()
-          break; //move south-west case
+          this.moveSouthWest()
+          break; //this.move south-west case
         case 2:
-          moveWest()
-          break; //move west case
+          this.moveWest()
+          break; //this.move west case
         case 3:
-          moveNorthWest()
-          break; //move north-west case
+          this.moveNorthWest()
+          break; //this.move north-west case
       }
     }
     if (keyIsDown(65)){
       switch (this.direction) {
         case 2:
-          moveNorth()
-          break; //move north case
+          this.moveNorth()
+          break; //this.move north case
         case 3:
-          moveNorthEast()
-          break; //move north-east case
+          this.moveNorthEast()
+          break; //this.move north-east case
         case 4:
-          moveEast()
-          break; //move east case
+          this.moveEast()
+          break; //this.move east case
         case 5:
-          moveSouthEast()
-          break; //move south-east case
+          this.moveSouthEast()
+          break; //this.move south-east case
         case 6:
-          moveSouth()
-          break; //move south case
+          this.moveSouth()
+          break; //this.move south case
         case 7:
-          moveSouthWest()
-          break; //move south-west case
+          this.moveSouthWest()
+          break; //this.move south-west case
         case 0:
-          moveWest()
-          break; //move west case
+          this.moveWest()
+          break; //this.move west case
         case 1:
-          moveNorthWest()
-          break; //move north-west case
+          this.moveNorthWest()
+          break; //this.move north-west case
       }
     }
     else if (keyIsDown(68)){
       switch (this.direction) {
         case 6:
-          moveNorth()
-          break; //move north case
+          this.moveNorth()
+          break; //this.move north case
         case 7:
-          moveNorthEast()
-          break; //move north-east case
+          this.moveNorthEast()
+          break; //this.move north-east case
         case 0:
-          moveEast()
-          break; //move east case
+          this.moveEast()
+          break; //this.move east case
         case 1:
-          moveSouthEast()
-          break; //move south-east case
+          this.moveSouthEast()
+          break; //this.move south-east case
         case 2:
-          moveSouth()
-          break; //move south case
+          this.moveSouth()
+          break; //this.move south case
         case 3:
-          moveSouthWest()
-          break; //move south-west case
+          this.moveSouthWest()
+          break; //this.move south-west case
         case 4:
-          moveWest()
-          break; //move west case
+          this.moveWest()
+          break; //this.move west case
         case 5:
-          moveNorthWest()
-          break; //move north-west case
+          this.moveNorthWest()
+          break; //this.move north-west case
       }
     }
   }
 }
 
 class entity{
-    constructor(x, y, {direction = 0, spriteSheet = devImp, spriteWidth = 42, spriteHeight = 61, solid = true}, renderHeight){
+    constructor(x, y, {direction = 0, spriteSheet = devImp, spriteWidth = 42, spriteHeight = 61, solid = true}, renderWidth, renderHeight){
         this.x = x
         this.y = y
         this.spriteSheet = spriteSheet
+        this.spriteWidth = spriteWidth
+        this.spriteHeight = spriteHeight
         this.direction = direction
         this.solid = solid
+        this.renderWidth = renderWidth
         this.renderHeight = renderHeight
     }
 }
 
 class enemy extends entity{
-    constructor(x, y, {direction = 0, spriteSheet = devImp, spriteWidth = 42, spriteHeight = 61, walkFrames = 4, collHeight = 4, solid = true}, renderHeight){
-        super(x, y, {direction: direction, spriteSheet: spriteSheet, spriteWidth: spriteWidth, spriteHeight: spriteHeight}, renderHeight)
+    constructor(x, y, {direction = 0, spriteSheet = devImp, spriteWidth = 42, spriteHeight = 61, walkFrames = 4, collHeight = 4, solid = true}, renderWidth, renderHeight){
+        super(x, y, {direction: direction, spriteSheet: spriteSheet, spriteWidth: spriteWidth, spriteHeight: spriteHeight}, renderWidth, renderHeight)
         this.walkFrames = walkFrames
         this.animation = 'i'
         this.frame = 0
@@ -235,10 +238,12 @@ class enemy extends entity{
     }
 
     drawMe(x, y, playerDist){
-        image(this.spriteSheet, 512, 288, 42, 61, Math.floor(this.frame) * 42, Math.floor(this.direction) * 61, 42, 61)
-        this.frame += .25
-        this.direction += .25
-        if (this.frame >= 4){this.frame = 0}
-        if (this.direction >= 8){this.direction = 0}
+      image(this.spriteSheet, //image ot be used
+        x - this.renderWidth / 2, y - this.renderHeight, //where to place top-left corner
+        this.renderWidth, this.renderHeight, //how big to draw
+        Math.floor(this.frame) * this.spriteWidth, this.direction * this.spriteHeight, //which part of spritesheet to take
+        this.spriteWidth, this.spriteHeight) //how big the sprite being used is
+      this.frame += 1
+      if (this.frame >= 4){this.frame = 0}
     }
 }

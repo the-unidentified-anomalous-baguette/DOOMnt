@@ -27,23 +27,23 @@ function isOdd(n) {
 
 //other gameplay functions
 function walkingSounds(){
-  switch (currentMap[player.coords[0]][player.coords[1]].material){
-    case 'grass':
-      footsGrass.play()
-      break;
-    case 'mud':
-      footsMud.play()
-      break;
-    case 'shingle':
-      footsShingle.play()
-      break;
-    case 'snow':
-      footsSnow.play()
-      break;
-    case 'solid':
-      footsSolid.play()
-      break;
-  }
+  // switch (currentMap[player.coords[0]][player.coords[1]].material){
+  //   case 'grass':
+  //     footsGrass.play()
+  //     break;
+  //   case 'mud':
+  //     footsMud.play()
+  //     break;
+  //   case 'shingle':
+  //     footsShingle.play()
+  //     break;
+  //   case 'snow':
+  //     footsSnow.play()
+  //     break;
+  //   case 'solid':
+  //     footsSolid.play()
+  //     break;
+  // }
 } //controls player footstep sounds
 //end of other gameplay functions
 
@@ -54,7 +54,7 @@ function setup(){
   canvas.parent('sketch-holder')
   frameRate(5)
   strokeWeight(1)
-  demoImp = new enemy(11, 11, {spriteSheet: devImp}, 576)
+  demoImp = new enemy(11, 11, {spriteSheet: devImp}, 42, 61)
 }
 
 function draw(){

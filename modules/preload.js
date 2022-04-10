@@ -6,5 +6,5 @@ function preload(){
     footsShingle = loadSound('assets/audio/shingleFootsteps.wav')
     footsSnow = loadSound('assets/audio/snowFootsteps.wav')
     footsSolid = loadSound('assets/audio/solidFootsteps.wav')
-    devImp = loadImage('assets/spriteSheets/development-imp.png')
+    devImp = loadImage('assets/spriteSheets/imp.png')
 }

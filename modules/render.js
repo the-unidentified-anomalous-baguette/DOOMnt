@@ -357,7 +357,14 @@ function enviroRender(){
           leftFace(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
         if (drawingBlock.hasEnemy == true){
-
+          demoImp.drawMe(mean([1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][0]/32, 
+                               1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][0]/32, 
+                               1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][0]/32,
+                               1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][0]/32]), 
+                         mean([576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][1]/18, 
+                               576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][1]/18,
+                               576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][1]/18,
+                               576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][1]/18]), whichBlock[0][i][0])
         }
         if (drawingBlock.southFace == 1 && whichBlock[0][i][0] != 5){
           fill(drawingBlock.southFaceC)
@@ -389,14 +396,7 @@ function enviroRender(){
           fill(drawingBlock.eastShinC)
           rightShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
-        if (drawingBlock.westShin == 1  && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.westShinC)
-          leftShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.southShin == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.southShinC)
-          frontShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
+        
         if (drawingBlock.knee == 1){
           fill(drawingBlock.kneeC)
           kneeTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
@@ -409,14 +409,6 @@ function enviroRender(){
           fill(drawingBlock.eastMidC)
           rightMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
-        if (drawingBlock.westMid == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.westMidC)
-          leftMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.southMid == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.southMidC)
-          frontMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
         if (drawingBlock.ceiling == 1){
           fill(drawingBlock.ceilingC)
           ceilingTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
@@ -428,14 +420,6 @@ function enviroRender(){
         if (drawingBlock.eastAbove == 1){
           fill(drawingBlock.eastAboveC)
           rightAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.westAbove == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.westAboveC)
-          leftAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.southAbove == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.southAboveC)
-          frontAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
         if (drawingBlock.head == 1){
           fill(drawingBlock.headC)
@@ -461,6 +445,30 @@ function enviroRender(){
           fill(drawingBlock.southFaceC)
           frontFace(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
+        if (drawingBlock.westAbove == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.westAboveC)
+          leftAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.southAbove == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.southAboveC)
+          frontAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.westMid == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.westMidC)
+          leftMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.southMid == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.southMidC)
+          frontMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.westShin == 1  && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.westShinC)
+          leftShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.southShin == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.southShinC)
+          frontShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
         break;
       case 2:
         if (drawingBlock.floor == 1){
@@ -479,10 +487,6 @@ function enviroRender(){
           fill(drawingBlock.northShinC)
           leftShin(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
-        if (drawingBlock.westShin == 1 && whichBlock[0][i][0] != 5){
-          fill(drawingBlock.westShinC)
-          frontShin(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
-        }
         if (drawingBlock.knee == 1){
           fill(drawingBlock.kneeC)
           kneeTile(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
@@ -499,10 +503,6 @@ function enviroRender(){
           fill(drawingBlock.northMidC)
           leftMid(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
-        if (drawingBlock.westMid == 1 && whichBlock[0][i][0] != 5){
-          fill(drawingBlock.westMidC)
-          frontMid(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
-        }
         if (drawingBlock.ceiling == 1){
           fill(drawingBlock.ceilingC)
           ceilingTile(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
@@ -518,10 +518,6 @@ function enviroRender(){
         if (drawingBlock.northAbove == 1){
           fill(drawingBlock.northAboveC)
           leftAboveHeadWall(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
-        }
-        if (drawingBlock.westAbove == 1 && whichBlock[0][i][0] != 5){
-          fill(drawingBlock.westAboveC)
-          frontAboveHeadWall(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
         if (drawingBlock.head == 1){
           fill(drawingBlock.headC)
@@ -547,6 +543,18 @@ function enviroRender(){
           fill(drawingBlock.westFaceC)
           frontFace(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
+        if (drawingBlock.westAbove == 1 && whichBlock[0][i][0] != 5){
+          fill(drawingBlock.westAboveC)
+          frontAboveHeadWall(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
+        }
+        if (drawingBlock.westMid == 1 && whichBlock[0][i][0] != 5){
+          fill(drawingBlock.westMidC)
+          frontMid(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
+        }
+        if (drawingBlock.westShin == 1 && whichBlock[0][i][0] != 5){
+          fill(drawingBlock.westShinC)
+          frontShin(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
+        }
         break;
       case 3:
         if (drawingBlock.floor == 1){
@@ -561,14 +569,6 @@ function enviroRender(){
           fill(drawingBlock.southShinC)
           rightShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
-        if (drawingBlock.northShin == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.northShinC)
-          leftShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.westShin == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.westShinC)
-          frontShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
         if (drawingBlock.knee == 1){
           fill(drawingBlock.kneeC)
           kneeTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
@@ -581,14 +581,6 @@ function enviroRender(){
           fill(drawingBlock.southMidC)
           rightMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
-        if (drawingBlock.northMid == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.northMidC)
-          leftMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.westMid == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.westMidC)
-          frontMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
         if (drawingBlock.ceiling == 1){
           fill(drawingBlock.ceilingC)
           ceilingTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
@@ -600,14 +592,6 @@ function enviroRender(){
         if (drawingBlock.southAbove == 1){
           fill(drawingBlock.southAboveC)
           rightAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.northAbove == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.northAboveC)
-          leftAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.westAbove == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.westAboveC)
-          frontAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
         if (drawingBlock.head == 1){
           fill(drawingBlock.headC)
@@ -633,6 +617,30 @@ function enviroRender(){
           fill(drawingBlock.westFaceC)
           frontFace(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
+        if (drawingBlock.northAbove == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.northAboveC)
+          leftAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.westAbove == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.westAboveC)
+          frontAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.northMid == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.northMidC)
+          leftMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.westMid == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.westMidC)
+          frontMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.northShin == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.northShinC)
+          leftShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.westShin == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.westShinC)
+          frontShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
         break;
       case 4:
         if (drawingBlock.floor == 1){
@@ -651,10 +659,6 @@ function enviroRender(){
           fill(drawingBlock.westShinC)
           leftShin(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
-        if (drawingBlock.northShin == 1 && whichBlock[0][i][0] != 5){
-          fill(drawingBlock.northShinC)
-          frontShin(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
-        }
         if (drawingBlock.knee == 1){
           fill(drawingBlock.kneeC)
           kneeTile(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
@@ -671,10 +675,6 @@ function enviroRender(){
           fill(drawingBlock.eastMidC)
           leftMid(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
-        if (drawingBlock.northMid == 1 && whichBlock[0][i][0] != 5){
-          fill(drawingBlock.northMidC)
-          frontMid(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
-        }
         if (drawingBlock.ceiling == 1){
           fill(drawingBlock.ceilingC)
           ceilingTile(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
@@ -690,10 +690,6 @@ function enviroRender(){
         if (drawingBlock.eastAbove == 1){
           fill(drawingBlock.eastAboveC)
           leftAboveHeadWall(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
-        }
-        if (drawingBlock.northAbove == 1 && whichBlock[0][i][0] != 5){
-          fill(drawingBlock.northAboveC)
-          frontAboveHeadWall(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
         if (drawingBlock.head == 1){
           fill(drawingBlock.headC)
@@ -719,6 +715,18 @@ function enviroRender(){
           fill(drawingBlock.northFaceC)
           frontFace(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
+        if (drawingBlock.northAbove == 1 && whichBlock[0][i][0] != 5){
+          fill(drawingBlock.northAboveC)
+          frontAboveHeadWall(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
+        }
+        if (drawingBlock.northMid == 1 && whichBlock[0][i][0] != 5){
+          fill(drawingBlock.northMidC)
+          frontMid(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
+        }
+        if (drawingBlock.northShin == 1 && whichBlock[0][i][0] != 5){
+          fill(drawingBlock.northShinC)
+          frontShin(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
+        }
         break;
       case 5:
         if (drawingBlock.floor == 1){
@@ -733,14 +741,6 @@ function enviroRender(){
           fill(drawingBlock.westShinC)
           rightShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
-        if (drawingBlock.eastShin == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.eastShinC)
-          leftShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.northShin == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.northShinC)
-          frontShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
         if (drawingBlock.knee == 1){
           fill(drawingBlock.kneeC)
           kneeTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
@@ -753,14 +753,6 @@ function enviroRender(){
           fill(drawingBlock.westMidC)
           rightMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
-        if (drawingBlock.eastMid == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.eastMidC)
-          leftMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.northMid == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.northMidC)
-          frontMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
         if (drawingBlock.ceiling == 1){
           fill(drawingBlock.ceilingC)
           ceilingTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
@@ -772,14 +764,6 @@ function enviroRender(){
         if (drawingBlock.westAbove == 1){
           fill(drawingBlock.westAboveC)
           rightAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.eastAbove == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.eastAboveC)
-          leftAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.northAbove == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.northAboveC)
-          frontAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
         if (drawingBlock.head == 1){
           fill(drawingBlock.headC)
@@ -805,6 +789,30 @@ function enviroRender(){
           fill(drawingBlock.northFaceC)
           frontFace(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
+        if (drawingBlock.eastAbove == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.eastAboveC)
+          leftAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.northAbove == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.northAboveC)
+          frontAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.eastMid == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.eastMidC)
+          leftMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.northMid == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.northMidC)
+          frontMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.eastShin == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.eastShinC)
+          leftShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.northShin == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.northShinC)
+          frontShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
         break;
       case 6:
         if (drawingBlock.floor == 1){
@@ -823,10 +831,6 @@ function enviroRender(){
           fill(drawingBlock.southShinC)
           leftShin(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
-        if (drawingBlock.eastShin == 1 && whichBlock[0][i][0] != 5){
-          fill(drawingBlock.eastShinC)
-          frontShin(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
-        }
         if (drawingBlock.knee == 1){
           fill(drawingBlock.kneeC)
           kneeTile(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
@@ -843,10 +847,6 @@ function enviroRender(){
           fill(drawingBlock.southMidC)
           leftMid(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
-        if (drawingBlock.eastMid == 1 && whichBlock[0][i][0] != 5){
-          fill(drawingBlock.eastMidC)
-          frontMid(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
-        }
         if (drawingBlock.ceiling == 1){
           fill(drawingBlock.ceilingC)
           ceilingTile(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
@@ -862,10 +862,6 @@ function enviroRender(){
         if (drawingBlock.southAbove == 1){
           fill(drawingBlock.southAboveC)
           leftAboveHeadWall(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
-        }
-        if (drawingBlock.eastAbove == 1 && whichBlock[0][i][0] != 5){
-          fill(drawingBlock.eastAboveC)
-          frontAboveHeadWall(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
         if (drawingBlock.head == 1){
           fill(drawingBlock.headC)
@@ -891,6 +887,18 @@ function enviroRender(){
           fill(drawingBlock.eastFaceC)
           frontFace(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
+        if (drawingBlock.eastAbove == 1 && whichBlock[0][i][0] != 5){
+          fill(drawingBlock.eastAboveC)
+          frontAboveHeadWall(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
+        }
+        if (drawingBlock.eastMid == 1 && whichBlock[0][i][0] != 5){
+          fill(drawingBlock.eastMidC)
+          frontMid(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
+        }
+        if (drawingBlock.eastShin == 1 && whichBlock[0][i][0] != 5){
+          fill(drawingBlock.eastShinC)
+          frontShin(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
+        }
         break;
       case 7:
         if (drawingBlock.floor == 1){
@@ -905,14 +913,6 @@ function enviroRender(){
           fill(drawingBlock.northShinC)
           rightShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
-        if (drawingBlock.southShin == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.southShinC)
-          leftShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.eastShin == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.eastShinC)
-          frontShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
         if (drawingBlock.knee == 1){
           fill(drawingBlock.kneeC)
           kneeTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
@@ -925,14 +925,6 @@ function enviroRender(){
           fill(drawingBlock.northMidC)
           rightMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
-        if (drawingBlock.southMid == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.southMidC)
-          leftMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.eastMid == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.eastMidC)
-          frontMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
         if (drawingBlock.ceiling == 1){
           fill(drawingBlock.ceilingC)
           ceilingTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
@@ -944,14 +936,6 @@ function enviroRender(){
         if (drawingBlock.northAbove == 1){
           fill(drawingBlock.northAboveC)
           rightAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.southAbove == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.southAboveC)
-          leftAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
-        }
-        if (drawingBlock.eastAbove == 1 && whichBlock[1][i][0] != 10){
-          fill(drawingBlock.eastAboveC)
-          frontAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
         if (drawingBlock.head == 1){
           fill(drawingBlock.headC) //hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
@@ -976,6 +960,30 @@ function enviroRender(){
         if (drawingBlock.eastFace == 1 && whichBlock[1][i][0] != 10){
           fill(drawingBlock.eastFaceC)
           frontFace(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.southAbove == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.southAboveC)
+          leftAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.eastAbove == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.eastAboveC)
+          frontAboveHeadWall(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.southMid == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.southMidC)
+          leftMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.eastMid == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.eastMidC)
+          frontMid(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.southShin == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.southShinC)
+          leftShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.eastShin == 1 && whichBlock[1][i][0] != 10){
+          fill(drawingBlock.eastShinC)
+          frontShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
         break;
     }
