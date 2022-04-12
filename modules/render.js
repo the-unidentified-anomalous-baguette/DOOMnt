@@ -43,6 +43,7 @@ class block {
     this.solidNorth = solidNorth; this.solidEast = solidEast; this.solidSouth = solidSouth; this.solidWest = solidWest
     this.material = material;
     this.hasEnemy = false
+    this.enemy = 0
   }
 } //the class for blocks of the world
 
@@ -357,7 +358,7 @@ function enviroRender(){
           leftFace(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
         if (drawingBlock.hasEnemy == true){
-          demoImp.drawMe(mean([1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][0]/32, 1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][0]/32, 
+          drawingBlock.enemy.drawMe(mean([1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][0]/32, 1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][0]/32, 
                                1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][0]/32, 1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][0]/32]), 
                          mean([576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][1]/18, 576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][1]/18,
                                576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][1]/18, 576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][1]/18]), 
@@ -395,7 +396,6 @@ function enviroRender(){
           fill(drawingBlock.eastShinC)
           rightShin(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
         }
-        
         if (drawingBlock.knee == 1){
           fill(drawingBlock.kneeC)
           kneeTile(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
@@ -435,6 +435,15 @@ function enviroRender(){
         if (drawingBlock.eastFace == 1){
           fill(drawingBlock.eastFaceC)
           rightFace(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.hasEnemy == true){
+          drawingBlock.enemy.drawMe(mean([1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][0][0]/32, 1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][1][0]/32, 
+                               1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][2][0]/32, 1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][3][0]/32]), 
+                         mean([576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][0][1]/18, 576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][1][1]/18,
+                               576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][2][1]/18, 576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][3][1]/18]), 
+                         mean([576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][0][1]))/18, 576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][1][1]))/18,
+                         576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][2][1]))/18, 576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][3][1]))/18])
+                               )
         }
         if (drawingBlock.westFace == 1 && whichBlock[1][i][0] != 10){
           fill(drawingBlock.westFaceC)
@@ -538,6 +547,15 @@ function enviroRender(){
           fill(drawingBlock.northFaceC)
           leftFace(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
+        if (drawingBlock.hasEnemy == true){
+          drawingBlock.enemy.drawMe(mean([1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][0]/32, 1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][0]/32, 
+                               1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][0]/32, 1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][0]/32]), 
+                         mean([576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][1]/18, 576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][1]/18,
+                               576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][1]/18, 576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][1]/18]), 
+                         mean([576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][1]))/18, 576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][1]))/18,
+                         576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][1]))/18, 576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][1]))/18])
+                               )
+        }
         if (drawingBlock.westFace == 1 && whichBlock[0][i][0] != 5){
           fill(drawingBlock.westFaceC)
           frontFace(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
@@ -607,6 +625,15 @@ function enviroRender(){
         if (drawingBlock.southFace == 1){
           fill(drawingBlock.southFaceC)
           rightFace(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.hasEnemy == true){
+          drawingBlock.enemy.drawMe(mean([1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][0][0]/32, 1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][1][0]/32, 
+                               1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][2][0]/32, 1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][3][0]/32]), 
+                         mean([576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][0][1]/18, 576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][1][1]/18,
+                               576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][2][1]/18, 576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][3][1]/18]), 
+                         mean([576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][0][1]))/18, 576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][1][1]))/18,
+                         576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][2][1]))/18, 576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][3][1]))/18])
+                               )
         }
         if (drawingBlock.northFace == 1 && whichBlock[1][i][0] != 10){
           fill(drawingBlock.northFaceC)
@@ -710,6 +737,15 @@ function enviroRender(){
           fill(drawingBlock.eastFaceC)
           leftFace(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
+        if (drawingBlock.hasEnemy == true){
+          drawingBlock.enemy.drawMe(mean([1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][0]/32, 1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][0]/32, 
+                               1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][0]/32, 1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][0]/32]), 
+                         mean([576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][1]/18, 576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][1]/18,
+                               576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][1]/18, 576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][1]/18]), 
+                         mean([576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][1]))/18, 576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][1]))/18,
+                         576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][1]))/18, 576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][1]))/18])
+                               )
+        }
         if (drawingBlock.northFace == 1 && whichBlock[0][i][0] != 5){
           fill(drawingBlock.northFaceC)
           frontFace(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
@@ -779,6 +815,15 @@ function enviroRender(){
         if (drawingBlock.westFace == 1){
           fill(drawingBlock.westFaceC)
           rightFace(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.hasEnemy == true){
+          drawingBlock.enemy.drawMe(mean([1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][0][0]/32, 1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][1][0]/32, 
+                               1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][2][0]/32, 1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][3][0]/32]), 
+                         mean([576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][0][1]/18, 576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][1][1]/18,
+                               576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][2][1]/18, 576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][3][1]/18]), 
+                         mean([576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][0][1]))/18, 576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][1][1]))/18,
+                         576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][2][1]))/18, 576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][3][1]))/18])
+                               )
         }
         if (drawingBlock.eastFace == 1 && whichBlock[1][i][0] != 10){
           fill(drawingBlock.eastFaceC)
@@ -882,6 +927,15 @@ function enviroRender(){
           fill(drawingBlock.southFaceC)
           leftFace(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
         }
+        if (drawingBlock.hasEnemy == true){
+          drawingBlock.enemy.drawMe(mean([1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][0]/32, 1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][0]/32, 
+                               1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][0]/32, 1024 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][0]/32]), 
+                         mean([576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][1]/18, 576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][1]/18,
+                               576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][1]/18, 576 * floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][1]/18]), 
+                         mean([576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][0][1]))/18, 576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][1][1]))/18,
+                         576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][2][1]))/18, 576 * (6+(6-floors90[whichBlock[0][i][0]][whichBlock[0][i][1]][3][1]))/18])
+                               )
+        }
         if (drawingBlock.eastFace == 1 && whichBlock[0][i][0] != 5){
           fill(drawingBlock.eastFaceC)
           frontFace(floors90, whichBlock[0][i][0], whichBlock[0][i][1])
@@ -951,6 +1005,15 @@ function enviroRender(){
         if (drawingBlock.northFace == 1){
           fill(drawingBlock.northFaceC)
           rightFace(floors45, whichBlock[1][i][0], whichBlock[1][i][1])
+        }
+        if (drawingBlock.hasEnemy == true){
+          drawingBlock.enemy.drawMe(mean([1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][0][0]/32, 1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][1][0]/32, 
+                               1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][2][0]/32, 1024 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][3][0]/32]), 
+                         mean([576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][0][1]/18, 576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][1][1]/18,
+                               576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][2][1]/18, 576 * floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][3][1]/18]), 
+                         mean([576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][0][1]))/18, 576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][1][1]))/18,
+                         576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][2][1]))/18, 576 * (6+(6-floors45[whichBlock[1][i][0]][whichBlock[1][i][1]][3][1]))/18])
+                               )
         }
         if (drawingBlock.southFace == 1 && whichBlock[1][i][0] != 10){
           fill(drawingBlock.southFaceC)

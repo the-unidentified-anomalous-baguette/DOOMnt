@@ -236,15 +236,85 @@ class enemy extends entity{
         this.prevX = x
         this.prevY = y
     }
-
-    drawMe(x, y, ceiling){
-      let maxHpcnt = (y - ceiling) * this.renderHeight / 1152 * .01
-      image(this.spriteSheet, //image ot be used
-        x - this.renderWidth / 2 * maxHpcnt, y - this.renderHeight * maxHpcnt, //where to place top-left corner
-        this.renderWidth * maxHpcnt, this.renderHeight * maxHpcnt, //how big to draw
-        Math.floor(this.frame) * this.spriteWidth, this.direction * this.spriteHeight, //which part of spritesheet to take
-        this.spriteWidth, this.spriteHeight) //how big the sprite being used is
+    turnRight(){
+      this.direction += 1
+      if (this.direction >= 8){
+        this.direction = 0
+      }
       this.frame += 1
       if (this.frame >= 4){this.frame = 0}
+    }
+    turnLeft(){
+      this.direction -= 1
+      if (this.direction <= -1){
+        this.direction = 7
+      }
+      this.frame += 1
+      if (this.frame >= 4){this.frame = 0}
+    }
+    
+    moveNorth(){
+      if(currentMap[this.y][this.x].solidNorth == 0 && currentMap[this.y - 1][this.x].solidSouth == 0){
+        currentMap[this.y][this.x].hasEnemy = 0
+        this.y -= 1
+        currentMap[this.y][this.x].hasEnemy = 1
+        currentMap[this.y][this.x].enemy = this
+      }
+      this.frame += 1
+      if (this.frame >= 4){this.frame = 0}
+    }
+    moveEast(){
+      if(currentMap[this.y][this.x].solidEast == 0 && currentMap[this.y][this.x + 1].solidWest == 0){
+        currentMap[this.y][this.x].hasEnemy = 0
+        this.x += 1
+        currentMap[this.y][this.x].hasEnemy = 1
+        currentMap[this.y][this.x].enemy = this
+      }
+      this.frame += 1
+      if (this.frame >= 4){this.frame = 0}
+    }
+    moveSouth(){
+      if(currentMap[this.y][this.x].solidSouth == 0 && currentMap[this.y + 1][this.x].solidNorth == 0){
+        currentMap[this.y][this.x].hasEnemy = 0
+        this.y += 1
+        currentMap[this.y][this.x].hasEnemy = 1
+        currentMap[this.y][this.x].enemy = this
+      }
+      this.frame += 1
+      if (this.frame >= 4){this.frame = 0}
+    }
+    moveWest(){
+      if(currentMap[this.y][this.x].solidWest == 0 && currentMap[this.y][this.x - 1].solidEast == 0){
+        currentMap[this.y][this.x].hasEnemy = 0
+        this.x -= 1
+        currentMap[this.y][this.x].hasEnemy = 1
+        currentMap[this.y][this.x].enemy = this
+      }
+      this.frame += 1
+      if (this.frame >= 4){this.frame = 0}
+    }
+
+    drawMe(x, y, ceiling){
+      let maxHpcnt = (y - ceiling) * this.renderHeight / 1152 * 0.001
+      let relDir = this.direction - player.direction
+      if (relDir < 0){
+        relDir += 8
+      }
+      switch (this.animation){
+        case 'm':
+          image(this.spriteSheet, //image to be used
+                x - this.renderWidth / 2 * maxHpcnt, y - this.renderHeight * maxHpcnt, //where to place top-left corner
+                this.renderWidth * maxHpcnt, this.renderHeight * maxHpcnt, //how big to draw
+                Math.floor(this.frame) * this.spriteWidth, relDir * this.spriteHeight, //which part of spritesheet to take
+                this.spriteWidth, this.spriteHeight) //how big the sprite being used is
+          break;
+        case 'i':
+          image(this.spriteSheet, //image to be used
+                x - this.renderWidth / 2 * maxHpcnt, y - this.renderHeight * maxHpcnt, //where to place top-left corner
+                this.renderWidth * maxHpcnt, this.renderHeight * maxHpcnt, //how big to draw
+                (relDir+ 5) * this.spriteWidth, 7 * this.spriteHeight, //which part of spritesheet to take
+                this.spriteWidth, this.spriteHeight) //how big the sprite being used is
+          break;
+      }
     }
 }

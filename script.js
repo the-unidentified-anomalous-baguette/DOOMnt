@@ -2,6 +2,7 @@
 let tick = 0
 let gamePart = 1 //menu, in-game, paused etc.
 let currentMap = [] //gets filled with "block" objects 
+let testRandom
 //end of global general variables 
 
 //gameplay variables
@@ -54,7 +55,8 @@ function setup(){
   canvas.parent('sketch-holder')
   frameRate(5)
   strokeWeight(1)
-  demoImp = new enemy(11, 11, {spriteSheet: devImp}, 210, 305)
+  demoImp = new enemy(11, 11, {direction: 4, spriteSheet: impSs}, 900 *42/61, 900)
+  greenImp = new enemy(8, 8, {spriteSheet: greenImpSs}, 850 * 42/61, 850)
 }
 
 function draw(){
@@ -120,16 +122,22 @@ function draw(){
       currentMap[11][13].southMidC = pureRed
       currentMap[13][13].northMidC = neutralGrey
       currentMap[11][11].hasEnemy = true
+      currentMap[12][11].hasEnemy = true
+      currentMap[11][11].enemy = demoImp
+      currentMap[12][11].enemy = greenImp
       player.coords = [12, 12]
       player.direction = 0
       gamePart = 2
       textSize(30)
       break;
     case 2:
+      testRandom = Math.floor(random(0, 4))
       background([127, 170, 255])
       player.turn()
       enviroRender()
       mapDraw()
+      //demoImp.moveSouth()
+      //if (testRandom == 0){demoImp.moveNorth()}else if (testRandom == 1){demoImp.moveEast()}else if (testRandom == 2){demoImp.moveSouth()}else {demoImp.moveWest()}
       break;
   }
 }
