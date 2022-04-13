@@ -1,0 +1,9 @@
+{
+    "workbench.preferredDarkColorTheme": "Red",
+    "workbench.colorTheme": "Red",
+    "workbench.preferredHighContrastColorTheme": "Red",
+    "workbench.preferredHighContrastLightColorTheme": "Red",
+    "workbench.preferredLightColorTheme": "Red",
+    "workbench.iconTheme": "vs-seti",
+    "workbench.sideBar.location": "left"
+}
