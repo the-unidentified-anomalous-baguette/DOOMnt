@@ -2,11 +2,11 @@
 let tick = 0
 let gamePart = 1 //menu, in-game, paused etc.
 let currentMap = [] //gets filled with "block" objects 
+let testRandom
 //end of global general variables 
 
 //gameplay variables
-let playerCoords = [0, 0]
-let playerDirection
+let player = new playerClass([0, 0], 0)
 let minimap
 //end of gameplay variables
 
@@ -27,350 +27,36 @@ function isOdd(n) {
 //end of general functions
 
 //other gameplay functions
-function turn(){
-  if (keyIsDown(LEFT_ARROW)) {
-    playerDirection -= 1
-    if (playerDirection == -1){
-      playerDirection = 7
-    }
-  }
-  if (keyIsDown(RIGHT_ARROW)) {
-    playerDirection += 1
-    if (playerDirection == 8){
-      playerDirection = 0
-    }
-  }
-  if (keyIsDown(87)){
-    switch (playerDirection) {
-      case 0:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-          playerCoords[0] -= 1
-        } 
-        break; //move north case
-      case 1:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-          playerCoords[0] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-            playerCoords[1] += 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-          playerCoords[1] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-            playerCoords[0] -= 1
-          }
-        }
-        break; //move north-east case
-      case 2:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-          playerCoords[1] += 1
-        }
-        break; //move east case
-      case 3:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-          playerCoords[1] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-            playerCoords[0] += 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-          playerCoords[0] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-            playerCoords[1] += 1
-          }
-        }
-        break; //move south-east case
-      case 4:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-          playerCoords[0] += 1
-        }
-        break; //move south case
-      case 5:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-          playerCoords[0] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-            playerCoords[1] -= 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-          playerCoords[1] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-            playerCoords[0] += 1
-          }
-        }
-        break; //move south-west case
-      case 6:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-          playerCoords[1] -= 1
-        }
-        break; //move west case
-      case 7:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-          playerCoords[1] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-            playerCoords[0] -= 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-          playerCoords[0] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-            playerCoords[1] -= 1
-          }
-        }
-        break; //move north-west case
-    }
-  }
-  else if (keyIsDown(83)){
-    switch (playerDirection) {
-      case 4:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-          playerCoords[0] -= 1
-        } 
-        break; //move north case
-      case 5:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-          playerCoords[0] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-            playerCoords[1] += 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-          playerCoords[1] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-            playerCoords[0] -= 1
-          }
-        }
-        break; //move north-east case
-      case 6:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-          playerCoords[1] += 1
-        }
-        break; //move east case
-      case 7:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-          playerCoords[1] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-            playerCoords[0] += 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-          playerCoords[0] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-            playerCoords[1] += 1
-          }
-        }
-        break; //move south-east case
-      case 0:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-          playerCoords[0] += 1
-        }
-        break; //move south case
-      case 1:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-          playerCoords[0] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-            playerCoords[1] -= 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-          playerCoords[1] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-            playerCoords[0] += 1
-          }
-        }
-        break; //move south-west case
-      case 2:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-          playerCoords[1] -= 1
-        }
-        break; //move west case
-      case 3:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-          playerCoords[1] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-            playerCoords[0] -= 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-          playerCoords[0] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-            playerCoords[1] -= 1
-          }
-        }
-        break; //move north-west case
-    }
-  }
-  if (keyIsDown(65)){
-    switch (playerDirection) {
-      case 2:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-          playerCoords[0] -= 1
-        } 
-        break; //move north case
-      case 3:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-          playerCoords[0] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-            playerCoords[1] += 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-          playerCoords[1] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-            playerCoords[0] -= 1
-          }
-        }
-        break; //move north-east case
-      case 4:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-          playerCoords[1] += 1
-        }
-        break; //move east case
-      case 5:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-          playerCoords[1] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-            playerCoords[0] += 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-          playerCoords[0] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-            playerCoords[1] += 1
-          }
-        }
-        break; //move south-east case
-      case 6:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-          playerCoords[0] += 1
-        }
-        break; //move south case
-      case 7:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-          playerCoords[0] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-            playerCoords[1] -= 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-          playerCoords[1] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-            playerCoords[0] += 1
-          }
-        }
-        break; //move south-west case
-      case 0:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-          playerCoords[1] -= 1
-        }
-        break; //move west case
-      case 1:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-          playerCoords[1] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-            playerCoords[0] -= 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-          playerCoords[0] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-            playerCoords[1] -= 1
-          }
-        }
-        break; //move north-west case
-    }
-  }
-  else if (keyIsDown(68)){
-    switch (playerDirection) {
-      case 6:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-          playerCoords[0] -= 1
-        } 
-        break; //move north case
-      case 7:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-          playerCoords[0] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-            playerCoords[1] += 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-          playerCoords[1] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-            playerCoords[0] -= 1
-          }
-        }
-        break; //move north-east case
-      case 0:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-          playerCoords[1] += 1
-        }
-        break; //move east case
-      case 1:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-          playerCoords[1] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-            playerCoords[0] += 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-          playerCoords[0] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidEast == 0 && currentMap[playerCoords[0]][playerCoords[1] + 1].solidWest == 0){
-            playerCoords[1] += 1
-          }
-        }
-        break; //move south-east case
-      case 2:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-          playerCoords[0] += 1
-        }
-        break; //move south case
-      case 3:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-          playerCoords[0] += 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-            playerCoords[1] -= 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-          playerCoords[1] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidSouth == 0 && currentMap[playerCoords[0] + 1][playerCoords[1]].solidNorth == 0){
-            playerCoords[0] += 1
-          }
-        }
-        break; //move south-west case
-      case 4:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-          playerCoords[1] -= 1
-        }
-        break; //move west case
-      case 5:
-        if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-          playerCoords[1] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-            playerCoords[0] -= 1
-          }
-        }
-        else if (currentMap[playerCoords[0]][playerCoords[1]].solidNorth == 0 && currentMap[playerCoords[0] - 1][playerCoords[1]].solidSouth == 0){
-          playerCoords[0] -= 1
-          if (currentMap[playerCoords[0]][playerCoords[1]].solidWest == 0 && currentMap[playerCoords[0]][playerCoords[1] - 1].solidEast == 0){
-            playerCoords[1] -= 1
-          }
-        }
-        break; //move north-west case
-    }
-  }
-}
-
+function walkingSounds(){
+  // switch (currentMap[player.coords[0]][player.coords[1]].material){
+  //   case 'grass':
+  //     footsGrass.play()
+  //     break;
+  //   case 'mud':
+  //     footsMud.play()
+  //     break;
+  //   case 'shingle':
+  //     footsShingle.play()
+  //     break;
+  //   case 'snow':
+  //     footsSnow.play()
+  //     break;
+  //   case 'solid':
+  //     footsSolid.play()
+  //     break;
+  // }
+} //controls player footstep sounds
 //end of other gameplay functions
 
 function setup(){
   angleMode(DEGREES)
   textAlign(CENTER, CENTER)
-  canvas = createCanvas(1024, 576)//window.innerWidth * .75, window.innerWidth *.75/16*9)//896, 504)
+  canvas = createCanvas(1024, 576)
   canvas.parent('sketch-holder')
   frameRate(5)
   strokeWeight(1)
+  demoImp = new enemy(11, 11, {direction: 4, spriteSheet: impSs}, 900 *42/61, 900)
+  greenImp = new enemy(8, 8, {spriteSheet: greenImpSs}, 850 * 42/61, 850)
 }
 
 function draw(){
@@ -378,12 +64,12 @@ function draw(){
     case 0:
       background(0);
       fill(pureRed);
-      textSize(height/10);
-      text('GAME', width/3, height/10);
-      rect(width/100, height/8, width/5, height/10);
-      rect(width/100, 2 * height/8, width/5, height/10);
+      textSize(576/10);
+      text('GAME', 1024/3, 576/10);
+      rect(1024/100, 576/8, 1024/5, 576/10);
+      rect(1024/100, 2 * 576/8, 1024/5, 576/10);
       fill(neutralGrey);
-      text('START', mean([width/100, width/100 + width/5]), mean([height/8, height/8 + height/10, height/10 + height/10]));
+      text('START', mean([1024/100, 1024/100 + 1024/5]), mean([576/8, 576/8 + 576/10, 576/10 + 576/10]));
       minimap = 1
       break;
     case 1: //loading a level
@@ -418,6 +104,7 @@ function draw(){
         for (let j = 0; j < currentMap[i].length; j++){
           currentMap[i][j] = Object.assign({}, currentMap[i][j])
           currentMap[i][j].floorC = [random(127, 256), random(127, 256), random(0, 127)]
+          currentMap[i][j].material = ['grass', 'mud', 'shingle', 'snow', 'solid'][Math.floor(random(0, 5))]
         }
       } //runs through the entire map and converts each block from references to prefabs to unique objects
       currentMap[12][13].northShinC = neutralGrey
@@ -434,16 +121,23 @@ function draw(){
       currentMap[11][13].northMidC = pureRed
       currentMap[11][13].southMidC = pureRed
       currentMap[13][13].northMidC = neutralGrey
-      playerCoords = [12, 12]
-      playerDirection = 0
+      currentMap[11][11].hasEnemy = true
+      currentMap[12][11].hasEnemy = true
+      currentMap[11][11].enemy = demoImp
+      currentMap[12][11].enemy = greenImp
+      player.coords = [12, 12]
+      player.direction = 0
       gamePart = 2
       textSize(30)
       break;
     case 2:
+      testRandom = Math.floor(random(0, 4))
       background([127, 170, 255])
-      turn()
+      player.turn()
       enviroRender()
       mapDraw()
+      //demoImp.moveSouth()
+      //if (testRandom == 0){demoImp.moveNorth()}else if (testRandom == 1){demoImp.moveEast()}else if (testRandom == 2){demoImp.moveSouth()}else {demoImp.moveWest()}
       break;
   }
 }
