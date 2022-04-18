@@ -6,4 +6,8 @@ function preload(){
     footsSolid = loadSound('assets/audio/solidFootsteps.wav')
     impSs = loadImage('assets/spriteSheets/imp.png')
     greenImpSs = loadImage('assets/spriteSheets/green-imp.png')
+    blankSs = loadImage('assets/spriteSheets/noEnemy.png')
+    skySs = loadImage('assets/spriteSheets/skyboxes/demo-sky.png')
+    gunSs = loadImage('assets/spriteSheets/weaponOverlays/rifle.png')
+    mapSpriteSs = loadImage('assets/spriteSheets/minimapPlayer.png')
 }

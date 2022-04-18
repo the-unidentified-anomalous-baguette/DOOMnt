@@ -1079,5 +1079,11 @@ function mapDraw(){
       }
     }
   }
+  image(mapSpriteSs,
+    48, 48, 
+    16, 16,
+    100 * player.direction, 0,
+    100, 100
+  )
 }
 //end of drawing functions

@@ -1,17 +1,110 @@
+class weapon{
+  constructor(firingType, spriteSheet, cooldown, damage, frame){
+    this.firingType = firingType
+    this.spriteSheet = spriteSheet
+    this.cooldown = cooldown
+    this.damage = damage
+    this.isShooting = 0
+    this.frame = frame
+  }
+
+  render(){
+    image(this.spriteSheet, 
+      0, 0, 
+      1024, 576, 
+      1024 * this.frame, 576 * this.isShooting, 
+      1024, 576)
+    if (this.isShooting){
+      this.frame += 1
+      if (this.frame >= this.cooldown){
+        this.frame = 0
+        this.isShooting = 0
+      }
+    }
+  }
+
+  attack(){
+    if (this.isShooting == 0){
+      this.isShooting = 1
+      this.frame = 0
+      switch (this.firingType){
+        case 'basic':
+          this.basicFiring()
+          break
+      }
+    }
+  }
+
+  basicFiring(){
+    switch (player.direction){
+      case 0:
+        if (currentMap[player.coords[0]][player.coords[1]].northMid == 0 && currentMap[player.coords[0] - 1][player.coords[1]].southMid == 0){
+          if (currentMap[player.coords[0] - 1][player.coords[1]].hasEnemy == 1){
+            currentMap[player.coords[0] - 1][player.coords[1]].enemy.hit('ballistic')
+          }
+          else if (currentMap[player.coords[0] - 1][player.coords[1]].northMid == 0 && currentMap[player.coords[0] - 2][player.coords[1]].southMid == 0 && currentMap[player.coords[0] - 2][player.coords[1]].hasEnemy == 1){
+            currentMap[player.coords[0] - 2][player.coords[1]].enemy.hit('ballistic')
+          }
+        }
+        break;
+      case 1:
+        if (currentMap[player.coords[0]][player.coords[1]].northMid == 0 && currentMap[player.coords[0] - 1][player.coords[1]].southMid == 0 && 
+            currentMap[player.coords[0]][player.coords[1]].eastMid == 0 && currentMap[player.coords[0]][player.coords[1] + 1].westMid == 0 && 
+            currentMap[player.coords[0]][player.coords[1] + 1].northMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] + 1].southMid == 0 &&
+            currentMap[player.coords[0] - 1][player.coords[1]].eastMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] + 1].westMid == 0){
+          if (currentMap[player.coords[0] - 1][player.coords[1] + 1].hasEnemy == 1){
+            currentMap[player.coords[0] - 1][player.coords[1] + 1].enemy.hit('ballistic')
+          }
+          else if (currentMap[player.coords[0] - 1][player.coords[1] + 1].northMid == 0 && currentMap[player.coords[0] - 2][player.coords[1]+ 1].southMid == 0 && 
+                   currentMap[player.coords[0] - 1][player.coords[1] + 1].eastMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] + 2].westMid == 0 && 
+                   currentMap[player.coords[0] - 1][player.coords[1] + 2].northMid == 0 && currentMap[player.coords[0] - 2][player.coords[1] + 2].southMid == 0&&
+                   currentMap[player.coords[0] - 2][player.coords[1] + 1].eastMid == 0 && currentMap[player.coords[0] - 2][player.coords[1] + 2].westMid == 0 &&
+                   currentMap[player.coords[0] - 2][player.coords[1] + 2].hasEnemy == 1){
+            currentMap[player.coords[0] - 2][player.coords[1] + 2].enemy.hit('ballistic')
+          }
+        }
+        break;
+      case 2:
+        if (currentMap[player.coords[0]][player.coords[1]].eastMid == 0 && currentMap[player.coords[0] - 1][player.coords[1]].westMid == 0){
+          if (currentMap[player.coords[0]][player.coords[1] + 1].hasEnemy == 1){
+            currentMap[player.coords[0]][player.coords[1] + 1].enemy.hit('ballistic')
+          }
+          else if (currentMap[player.coords[0]][player.coords[1] + 1].eastMid == 0 && currentMap[player.coords[0]][player.coords[1] + 2].westMid == 0 && currentMap[player.coords[0]][player.coords[1] + 2].hasEnemy == 1){
+            currentMap[player.coords[0]][player.coords[1] + 2].enemy.hit('ballistic')
+          }
+        }
+        break;
+      }
+  }
+}
+
 class playerClass{
-    constructor(coords, direction){
+    constructor(coords, direction, equipped){
         this.coords = coords
         this.direction = direction
+        this.equipped = equipped
     }
+
+    eqpdCalc(){
+      if (!this.equipped.isShooting){
+        this.equipped.frame += 1
+        if (this.equipped.frame == 4){
+          this.equipped.frame = 0
+        }
+      }
+    }
+
     moveNorth(){
     if (currentMap[this.coords[0]][this.coords[1]].solidNorth == 0 && currentMap[this.coords[0] - 1][this.coords[1]].solidSouth == 0){
       this.coords[0] -= 1
       walkingSounds()
+      this.eqpdCalc()
     } 
   };moveNorthEast(){
     if (currentMap[this.coords[0]][this.coords[1]].solidNorth == 0 && currentMap[this.coords[0] - 1][this.coords[1]].solidSouth == 0){
       this.coords[0] -= 1
       walkingSounds()
+      this.eqpdCalc()
       if (currentMap[this.coords[0]][this.coords[1]].solidEast == 0 && currentMap[this.coords[0]][this.coords[1] + 1].solidWest == 0){
         this.coords[1] += 1
       }
@@ -19,6 +112,7 @@ class playerClass{
     else if (currentMap[this.coords[0]][this.coords[1]].solidEast == 0 && currentMap[this.coords[0]][this.coords[1] + 1].solidWest == 0){
       this.coords[1] += 1
       walkingSounds()
+      this.eqpdCalc()
       if (currentMap[this.coords[0]][this.coords[1]].solidNorth == 0 && currentMap[this.coords[0] - 1][this.coords[1]].solidSouth == 0){
         this.coords[0] -= 1
       }
@@ -27,11 +121,13 @@ class playerClass{
     if (currentMap[this.coords[0]][this.coords[1]].solidEast == 0 && currentMap[this.coords[0]][this.coords[1] + 1].solidWest == 0){
       this.coords[1] += 1
       walkingSounds()
+      this.eqpdCalc()
     }
   };moveSouthEast(){
     if (currentMap[this.coords[0]][this.coords[1]].solidEast == 0 && currentMap[this.coords[0]][this.coords[1] + 1].solidWest == 0){
       this.coords[1] += 1
       walkingSounds()
+      this.eqpdCalc()
       if (currentMap[this.coords[0]][this.coords[1]].solidSouth == 0 && currentMap[this.coords[0] + 1][this.coords[1]].solidNorth == 0){
         this.coords[0] += 1
       }
@@ -39,6 +135,7 @@ class playerClass{
     else if (currentMap[this.coords[0]][this.coords[1]].solidSouth == 0 && currentMap[this.coords[0] + 1][this.coords[1]].solidNorth == 0){
       this.coords[0] += 1
       walkingSounds()
+      this.eqpdCalc()
       if (currentMap[this.coords[0]][this.coords[1]].solidEast == 0 && currentMap[this.coords[0]][this.coords[1] + 1].solidWest == 0){
         this.coords[1] += 1
       }
@@ -47,11 +144,13 @@ class playerClass{
     if (currentMap[this.coords[0]][this.coords[1]].solidSouth == 0 && currentMap[this.coords[0] + 1][this.coords[1]].solidNorth == 0){
       this.coords[0] += 1
       walkingSounds()
+      this.eqpdCalc()
     }
   };moveSouthWest(){
     if (currentMap[this.coords[0]][this.coords[1]].solidSouth == 0 && currentMap[this.coords[0] + 1][this.coords[1]].solidNorth == 0){
       this.coords[0] += 1
       walkingSounds()
+      this.eqpdCalc()
       if (currentMap[this.coords[0]][this.coords[1]].solidWest == 0 && currentMap[this.coords[0]][this.coords[1] - 1].solidEast == 0){
         this.coords[1] -= 1
       }
@@ -59,6 +158,7 @@ class playerClass{
     else if (currentMap[this.coords[0]][this.coords[1]].solidWest == 0 && currentMap[this.coords[0]][this.coords[1] - 1].solidEast == 0){
       this.coords[1] -= 1
       walkingSounds()
+      this.eqpdCalc()
       if (currentMap[this.coords[0]][this.coords[1]].solidSouth == 0 && currentMap[this.coords[0] + 1][this.coords[1]].solidNorth == 0){
         this.coords[0] += 1
       }
@@ -67,11 +167,13 @@ class playerClass{
     if (currentMap[this.coords[0]][this.coords[1]].solidWest == 0 && currentMap[this.coords[0]][this.coords[1] - 1].solidEast == 0){
       this.coords[1] -= 1
       walkingSounds()
+      this.eqpdCalc()
     }
   };moveNorthWest(){
     if (currentMap[this.coords[0]][this.coords[1]].solidWest == 0 && currentMap[this.coords[0]][this.coords[1] - 1].solidEast == 0){
       this.coords[1] -= 1
       walkingSounds()
+      this.eqpdCalc()
       if (currentMap[this.coords[0]][this.coords[1]].solidNorth == 0 && currentMap[this.coords[0] - 1][this.coords[1]].solidSouth == 0){
         this.coords[0] -= 1
       }
@@ -79,19 +181,20 @@ class playerClass{
     else if (currentMap[this.coords[0]][this.coords[1]].solidNorth == 0 && currentMap[this.coords[0] - 1][this.coords[1]].solidSouth == 0){
       this.coords[0] -= 1
       walkingSounds()
+      this.eqpdCalc()
       if (currentMap[this.coords[0]][this.coords[1]].solidWest == 0 && currentMap[this.coords[0]][this.coords[1] - 1].solidEast == 0){
         this.coords[1] -= 1
       }
     }
   };
   turn(){
-    if (keyIsDown(LEFT_ARROW)) {
+    if (mouseX + 10 < prevMouseX) {
       this.direction -= 1
       if (this.direction == -1){
         this.direction = 7
       }
     }
-    if (keyIsDown(RIGHT_ARROW)) {
+    if (mouseX - 10 > prevMouseX) {
       this.direction += 1
       if (this.direction == 8){
         this.direction = 0
@@ -227,8 +330,9 @@ class entity{
 }
 
 class enemy extends entity{
-    constructor(x, y, {direction = 0, spriteSheet = devImp, spriteWidth = 42, spriteHeight = 61, walkFrames = 4, collHeight = 4, solid = true}, renderWidth, renderHeight){
-        super(x, y, {direction: direction, spriteSheet: spriteSheet, spriteWidth: spriteWidth, spriteHeight: spriteHeight}, renderWidth, renderHeight)
+    constructor(x, y, hp, {direction = 0, spriteSheet = impSs, spriteWidth = 42, spriteHeight = 61, walkFrames = 4, collHeight = 4}, renderWidth, renderHeight){
+        super(x, y, {direction: direction, spriteSheet: spriteSheet, spriteWidth: spriteWidth, spriteHeight: spriteHeight, solid: true}, renderWidth, renderHeight)
+        this.hp = hp
         this.walkFrames = walkFrames
         this.animation = 'i'
         this.frame = 0
@@ -312,9 +416,29 @@ class enemy extends entity{
           image(this.spriteSheet, //image to be used
                 x - this.renderWidth / 2 * maxHpcnt, y - this.renderHeight * maxHpcnt, //where to place top-left corner
                 this.renderWidth * maxHpcnt, this.renderHeight * maxHpcnt, //how big to draw
-                (relDir+ 5) * this.spriteWidth, 7 * this.spriteHeight, //which part of spritesheet to take
+                (relDir + 5) * this.spriteWidth, 7 * this.spriteHeight, //which part of spritesheet to take
                 this.spriteWidth, this.spriteHeight) //how big the sprite being used is
           break;
+        case 'h':
+          image(this.spriteSheet, //image to be used
+                x - this.renderWidth / 2 * maxHpcnt, y - this.renderHeight * maxHpcnt, //where to place top-left corner
+                this.renderWidth * maxHpcnt, this.renderHeight * maxHpcnt, //how big to draw
+                4 * this.spriteWidth, relDir * this.spriteHeight, //which part of spritesheet to take
+                this.spriteWidth, this.spriteHeight) //how big the sprite being used is
+          this.animation = 'i'
+          break;
       }
+    }
+
+    hit(damType){
+      switch (damType){
+        case 'ballistic':
+          this.ballisticDmg()
+      }
+    }
+
+    ballisticDmg(){
+      this.hp -= player.equipped.damage
+      this.animation = 'h'
     }
 }

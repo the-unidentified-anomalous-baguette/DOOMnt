@@ -3,10 +3,12 @@ let tick = 0
 let gamePart = 1 //menu, in-game, paused etc.
 let currentMap = [] //gets filled with "block" objects 
 let testRandom
+let prevMouseX
 //end of global general variables 
 
 //gameplay variables
-let player = new playerClass([0, 0], 0)
+let rifle
+let player
 let minimap
 //end of gameplay variables
 
@@ -55,8 +57,11 @@ function setup(){
   canvas.parent('sketch-holder')
   frameRate(5)
   strokeWeight(1)
-  demoImp = new enemy(11, 11, {direction: 4, spriteSheet: impSs}, 900 *42/61, 900)
-  greenImp = new enemy(8, 8, {spriteSheet: greenImpSs}, 850 * 42/61, 850)
+  demoImp = new enemy(11, 11, 5, {direction: 4, spriteSheet: impSs}, 900 * 42/61, 900)
+  greenImp = new enemy(8, 8, 5, {spriteSheet: greenImpSs}, 850 * 42/61, 850)
+  noEnemy = new enemy(0, 0, 5, {spriteSheet: blankSs}, 0, 0)
+  rifle = new weapon('basic', gunSs, 4, 1, 0)
+  player = new playerClass([0, 0], 0, rifle)
 }
 
 function draw(){
@@ -85,9 +90,9 @@ function draw(){
                     [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, bk, fC, fC, fC, fC, fC, fC, fB, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, wW, fC, fC, fC, bk, bk, bk, bk, fC, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, wW, bk, fC, fC, fB, fB, bk, bk, fC, fB, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, wW, bk, fB, fC, fC, sW, fB, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, wW, bk, fC, fC, fC, sW, fB, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, fB, fC, fC, fC, fC, eW, bk, bk, bk, fC, fB, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, wW, fB, fC, fC, nW, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, wW, fC, fC, fC, nW, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, eW, eW, bk, fC, fB, fB, fC, fC, bk, wW, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, bk, bk, bk, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, fC, fC, sW, nW, wW, fC, fB, bk, bk, bk, bk, bk, bk, bk],
@@ -131,20 +136,28 @@ function draw(){
       textSize(30)
       break;
     case 2:
-      testRandom = Math.floor(random(0, 4))
-      background([127, 170, 255])
+      //testRandom = Math.floor(random(0, 4))
       player.turn()
+      image(skySs, //image to be used
+                0, 0, //where to place top-left corner
+                1024, 576, //how big to draw
+                player.direction * 1024, 0, //which part of spritesheet to take
+                1024, 576) //how big the sprite being used is
       enviroRender()
       mapDraw()
-      //demoImp.moveSouth()
-      //if (testRandom == 0){demoImp.moveNorth()}else if (testRandom == 1){demoImp.moveEast()}else if (testRandom == 2){demoImp.moveSouth()}else {demoImp.moveWest()}
+      player.equipped.render()
+      prevMouseX = mouseX
       break;
   }
 }
 
 function mousePressed(){
-  if (gamePart == 0){
-    //if (mouseX > )
-    gamePart = 1
+  switch (gamePart){
+    case 0:
+      //if (mouseX > )
+      gamePart = 1
+      break;
+    case 2:
+      player.equipped.attack()
   }
 }
