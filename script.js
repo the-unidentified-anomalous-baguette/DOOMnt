@@ -57,7 +57,7 @@ function setup(){
   canvas.parent('sketch-holder')
   frameRate(5)
   strokeWeight(1)
-  demoImp = new enemy(11, 11, 5, {direction: 4, spriteSheet: impSs}, 900 * 42/61, 900)
+  demoImp = new enemy(11, 11, 1, {direction: 4, spriteSheet: impSs}, 900 * 42/61, 900)
   greenImp = new enemy(8, 8, 5, {spriteSheet: greenImpSs}, 850 * 42/61, 850)
   noEnemy = new enemy(0, 0, 5, {spriteSheet: blankSs}, 0, 0)
   rifle = new weapon('basic', gunSs, 4, 1, 0)
@@ -67,43 +67,44 @@ function setup(){
 function draw(){
   switch(gamePart) {
     case 0:
-      background(0);
-      fill(pureRed);
-      textSize(576/10);
-      text('GAME', 1024/3, 576/10);
-      rect(1024/100, 576/8, 1024/5, 576/10);
-      rect(1024/100, 2 * 576/8, 1024/5, 576/10);
-      fill(neutralGrey);
-      text('START', mean([1024/100, 1024/100 + 1024/5]), mean([576/8, 576/8 + 576/10, 576/10 + 576/10]));
+      background(0)
+      fill(pureRed)
+      textSize(50)
+      text('GAME', 512, 50)
+      rect(10, 100, 100, 50)
+      fill(neutralGrey)
+      textSize(25)
+      text('play', 60, 125)
       minimap = 1
       break;
     case 1: //loading a level
+      document.getElementById('sketch-holder').style.cursor = 'none'
       background(0)
-      currentMap = [[bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, bk, bk, bk, fB, fB, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, bk, fC, fC, fC, fC, fC, fC, fB, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, wW, fC, fC, fC, bk, bk, bk, bk, fC, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, wW, bk, fC, fC, fB, fB, bk, bk, fC, fB, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, wW, bk, fC, fC, fC, sW, fB, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, fB, fC, fC, fC, fC, eW, bk, bk, bk, fC, fB, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, wW, fC, fC, fC, nW, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, eW, bk, fC, fB, fB, fC, fC, bk, wW, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, bk, bk, bk, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, fC, fC, sW, nW, wW, fC, fB, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk]
+      currentMap = [[bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, bk, bk, bk, fB, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, bk, fC, fC, fC, fC, fC, fC, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, wW, fC, fC, fC, bk, bk, bk, bk, fC, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, wW, bk, fC, fC, fB, fB, bk, bk, fC, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, wW, bk, fC, fC, fC, sW, fB, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, fB, fC, fC, fC, fC, eW, bk, bk, bk, fC, fB, nW, nW, nW, fB, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, wW, fC, fC, fC, nW, fC, fC, fC, eW, fC, fC, fC, eW, bk, bk, bk, bk, eW, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, eW, bk, fC, fB, fB, fC, fC, bk, nW, fC, fC, fC, eW, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, bk, bk, bk, fC, fC, sW, fC, fC, fC, eW, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, fC, fC, sW, nW, wW, fC, fB, sW, sW, sW, fB, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk]
                    ] //loads a map
       for (let i = 0; i < currentMap.length; i++){
         for (let j = 0; j < currentMap[i].length; j++){
@@ -154,10 +155,12 @@ function draw(){
 function mousePressed(){
   switch (gamePart){
     case 0:
-      //if (mouseX > )
-      gamePart = 1
+      if (mouseX > 10 && mouseX < 110 && mouseY > 100 && mouseY < 150){
+        gamePart = 1
+      }
       break;
     case 2:
       player.equipped.attack()
+      break;
   }
 }

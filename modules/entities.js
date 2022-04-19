@@ -65,7 +65,7 @@ class weapon{
         }
         break;
       case 2:
-        if (currentMap[player.coords[0]][player.coords[1]].eastMid == 0 && currentMap[player.coords[0] - 1][player.coords[1]].westMid == 0){
+        if (currentMap[player.coords[0]][player.coords[1]].eastMid == 0 && currentMap[player.coords[0]][player.coords[1] + 1].westMid == 0){
           if (currentMap[player.coords[0]][player.coords[1] + 1].hasEnemy == 1){
             currentMap[player.coords[0]][player.coords[1] + 1].enemy.hit('ballistic')
           }
@@ -74,7 +74,78 @@ class weapon{
           }
         }
         break;
-      }
+      case 3:
+        if (currentMap[player.coords[0]][player.coords[1]].eastMid == 0 && currentMap[player.coords[0]][player.coords[1] + 1].westMid == 0 && 
+          currentMap[player.coords[0]][player.coords[1]].southMid == 0 && currentMap[player.coords[0] + 1][player.coords[1]].northMid == 0 && 
+          currentMap[player.coords[0] + 1][player.coords[1]].eastMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] + 1].westMid == 0 &&
+          currentMap[player.coords[0]][player.coords[1] + 1].southMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] + 1].northMid == 0){
+          if (currentMap[player.coords[0] + 1][player.coords[1] + 1].hasEnemy == 1){
+            currentMap[player.coords[0] + 1][player.coords[1] + 1].enemy.hit('ballistic')
+          }
+          else if (currentMap[player.coords[0] + 1][player.coords[1] + 1].eastMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] + 2].westMid == 0 && 
+                  currentMap[player.coords[0] + 1][player.coords[1] + 1].southMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] + 1].northMid == 0 && 
+                  currentMap[player.coords[0] + 2][player.coords[1] + 1].eastMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] + 2].westMid == 0&&
+                  currentMap[player.coords[0] + 1][player.coords[1] + 2].southMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] + 2].northMid == 0 &&
+                  currentMap[player.coords[0] + 2][player.coords[1] + 2].hasEnemy == 1){
+            currentMap[player.coords[0] + 2][player.coords[1] + 2].enemy.hit('ballistic')
+          }
+        }
+        break;
+      case 4:
+        if (currentMap[player.coords[0]][player.coords[1]].southMid == 0 && currentMap[player.coords[0] + 1][player.coords[1]].northMid == 0){
+          if (currentMap[player.coords[0] + 1][player.coords[1]].hasEnemy == 1){
+            currentMap[player.coords[0] + 1][player.coords[1]].enemy.hit('ballistic')
+          }
+          else if (currentMap[player.coords[0] + 1][player.coords[1]].southMid == 0 && currentMap[player.coords[0] + 2][player.coords[1]].northMid == 0 && currentMap[player.coords[0] + 2][player.coords[1]].hasEnemy == 1){
+            currentMap[player.coords[0] + 2][player.coords[1]].enemy.hit('ballistic')
+          }
+        }
+        break;
+      case 5:
+        if (currentMap[player.coords[0]][player.coords[1]].southMid == 0 && currentMap[player.coords[0] + 1][player.coords[1]].northMid == 0 && 
+          currentMap[player.coords[0]][player.coords[1]].westMid == 0 && currentMap[player.coords[0]][player.coords[1] - 1].eastMid == 0 && 
+          currentMap[player.coords[0]][player.coords[1] - 1].southMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] - 1].northMid == 0 &&
+          currentMap[player.coords[0] + 1][player.coords[1]].westMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] - 1].eastMid == 0){
+          if (currentMap[player.coords[0] + 1][player.coords[1] - 1].hasEnemy == 1){
+            currentMap[player.coords[0] + 1][player.coords[1] - 1].enemy.hit('ballistic')
+          }
+          else if (currentMap[player.coords[0] + 1][player.coords[1] - 1].southMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] - 1].northMid == 0 && 
+                   currentMap[player.coords[0] + 1][player.coords[1] - 1].westMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] - 2].eastMid == 0 && 
+                   currentMap[player.coords[0] + 1][player.coords[1] - 2].southMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] - 2].northMid == 0&&
+                   currentMap[player.coords[0] + 2][player.coords[1] - 1].westMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] - 2].eastMid == 0 &&
+                   currentMap[player.coords[0] + 2][player.coords[1] - 2].hasEnemy == 1){
+            currentMap[player.coords[0] + 2][player.coords[1] - 2].enemy.hit('ballistic')
+          }
+        }
+        break;
+      case 6:
+        if (currentMap[player.coords[0]][player.coords[1]].westMid == 0 && currentMap[player.coords[0]][player.coords[1] - 1].eastMid == 0){
+          if (currentMap[player.coords[0]][player.coords[1] - 1].hasEnemy == 1){
+            currentMap[player.coords[0]][player.coords[1] - 1].enemy.hit('ballistic')
+          }
+          else if (currentMap[player.coords[0]][player.coords[1] - 1].westMid == 0 && currentMap[player.coords[0]][player.coords[1] - 2].eastMid == 0 && currentMap[player.coords[0]][player.coords[1] - 2].hasEnemy == 1){
+            currentMap[player.coords[0]][player.coords[1] - 2].enemy.hit('ballistic')
+          }
+        }
+        break;
+      case 7:
+        if (currentMap[player.coords[0]][player.coords[1]].westMid == 0 && currentMap[player.coords[0]][player.coords[1] - 1].eastMid == 0 && 
+          currentMap[player.coords[0]][player.coords[1]].northMid == 0 && currentMap[player.coords[0] - 1][player.coords[1]].southMid == 0 && 
+          currentMap[player.coords[0] - 1][player.coords[1]].westMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] - 1].eastMid == 0 &&
+          currentMap[player.coords[0]][player.coords[1] - 1].northMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] - 1].southMid == 0){
+          if (currentMap[player.coords[0] - 1][player.coords[1] - 1].hasEnemy == 1){
+            currentMap[player.coords[0] - 1][player.coords[1] - 1].enemy.hit('ballistic')
+          }
+          else if (currentMap[player.coords[0] - 1][player.coords[1] - 1].westMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] - 2].eastMid == 0 && 
+                  currentMap[player.coords[0] - 1][player.coords[1] - 1].northMid == 0 && currentMap[player.coords[0] - 2][player.coords[1] - 1].southMid == 0 && 
+                  currentMap[player.coords[0] - 2][player.coords[1] - 1].westMid == 0 && currentMap[player.coords[0] - 2][player.coords[1] - 2].eastMid == 0&&
+                  currentMap[player.coords[0] - 1][player.coords[1] - 2].northMid == 0 && currentMap[player.coords[0] - 2][player.coords[1] - 2].southMid == 0 &&
+                  currentMap[player.coords[0] - 2][player.coords[1] - 2].hasEnemy == 1){
+            currentMap[player.coords[0] - 2][player.coords[1] - 2].enemy.hit('ballistic')
+          }
+        }
+        break;
+    }
   }
 }
 
@@ -316,7 +387,7 @@ class playerClass{
 }
 
 class entity{
-    constructor(x, y, {direction = 0, spriteSheet = devImp, spriteWidth = 42, spriteHeight = 61, solid = true}, renderWidth, renderHeight){
+    constructor(x, y, {direction = 0, spriteSheet = impSs, spriteWidth = 42, spriteHeight = 61, solid = true}, renderWidth, renderHeight){
         this.x = x
         this.y = y
         this.spriteSheet = spriteSheet
@@ -326,6 +397,19 @@ class entity{
         this.solid = solid
         this.renderWidth = renderWidth
         this.renderHeight = renderHeight
+    }
+
+    drawMe(x, y, ceiling){
+      let maxHpcnt = (y - ceiling) * this.renderHeight / 1152 * 0.001
+      let relDir = this.direction - player.direction
+      if (relDir < 0){
+        relDir += 8
+      }
+      image(this.spriteSheet, //image to be used
+            x - this.renderWidth / 2 * maxHpcnt, y - this.renderHeight * maxHpcnt, //where to place top-left corner
+            this.renderWidth * maxHpcnt, this.renderHeight * maxHpcnt, //how big to draw
+            this.spriteWidth, relDir * this.spriteHeight, //which part of spritesheet to take
+            this.spriteWidth, this.spriteHeight) //how big the sprite being used is
     }
 }
 
@@ -427,6 +511,15 @@ class enemy extends entity{
                 this.spriteWidth, this.spriteHeight) //how big the sprite being used is
           this.animation = 'i'
           break;
+        case 'd':
+          image(this.spriteSheet, //image to be used
+                x - this.renderWidth / 2 * maxHpcnt, y - this.renderHeight * maxHpcnt, //where to place top-left corner
+                this.renderWidth * maxHpcnt, this.renderHeight * maxHpcnt, //how big to draw
+                (this.frame + 5) * this.spriteWidth, 0, //which part of spritesheet to take
+                this.spriteWidth, this.spriteHeight) //how big the sprite being used is
+          if (this.frame < 2){
+            this.frame += 1
+          }
       }
     }
 
@@ -438,7 +531,13 @@ class enemy extends entity{
     }
 
     ballisticDmg(){
-      this.hp -= player.equipped.damage
-      this.animation = 'h'
+      if (this.hp > 0){
+        this.hp -= player.equipped.damage
+        this.animation = 'h'
+        if (this.hp <= 0){
+          this.animation = 'd'
+          this.frame = 0
+        }
+      }
     }
 }
