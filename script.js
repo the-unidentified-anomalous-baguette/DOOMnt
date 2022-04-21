@@ -1,15 +1,16 @@
 //global general variables
 let tick = 0
-let gamePart = 1 //menu, in-game, paused etc.
+let gamePart = 0 //menu, in-game, paused etc.
 let currentMap = [] //gets filled with "block" objects 
 let testRandom
-let prevMouseX
 //end of global general variables 
 
 //gameplay variables
 let rifle
 let player
 let minimap
+let amo
+let invMaxes = [10]
 //end of gameplay variables
 
 //general functions
@@ -48,6 +49,21 @@ function walkingSounds(){
   //     break;
   // }
 } //controls player footstep sounds
+function isMoveValid(mC, mV){
+  if (mV == 'north' && currentMap[mC[0]][mC[1]].solidNorth == 0 && currentMap[mC[0] - 1][mC[1]].solidSouth == 0){
+    return true
+  }
+  else if (mV == 'south' && currentMap[mC[0]][mC[1]].solidSouth == false && currentMap[mC[0] + 1][mC[1]].solidNorth == false){
+    return true
+  }
+  else if (mV == 'east' && currentMap[mC[0]][mC[1]].solidEast == false && currentMap[mC[0]][mC[1] + 1].solidWest == false){
+    return true
+  }
+  else if (mV == 'west' && currentMap[mC[0]][mC[1]].solidWest == false && currentMap[mC[0]][mC[1] - 1].solidEast == false){
+    return true
+  }
+  else {return false}
+}
 //end of other gameplay functions
 
 function setup(){
@@ -57,11 +73,12 @@ function setup(){
   canvas.parent('sketch-holder')
   frameRate(5)
   strokeWeight(1)
-  demoImp = new enemy(11, 11, 1, {direction: 4, spriteSheet: impSs}, 900 * 42/61, 900)
-  greenImp = new enemy(8, 8, 5, {spriteSheet: greenImpSs}, 850 * 42/61, 850)
+  demoImp = new enemy(11, 11, 1, {direction: 4, spriteSheet: impSs, activeArea: [8, 8, 16, 16]}, 900 * 42/61, 900)
+  greenImp = new enemy(11, 12, 5, {spriteSheet: greenImpSs, activeArea: [8, 8, 16, 16]}, 850 * 42/61, 850)
   noEnemy = new enemy(0, 0, 5, {spriteSheet: blankSs}, 0, 0)
-  rifle = new weapon('basic', gunSs, 4, 1, 0)
-  player = new playerClass([0, 0], 0, rifle)
+  amo = new entity(8, 8, {spriteSheet: amoSs, spriteWidth: 25, spriteHeight: 25, xFrame: 0, yFrame: 0, animation: 'c', inv: [5]}, 300, 300)
+  rifle = new weapon('basic', gunSs, 4, 1, 0, 0)
+  player = new playerClass([0, 0], 0, rifle, {})
 }
 
 function draw(){
@@ -78,7 +95,7 @@ function draw(){
       minimap = 1
       break;
     case 1: //loading a level
-      document.getElementById('sketch-holder').style.cursor = 'none'
+      //document.getElementById('sketch-holder').style.cursor = 'none'
       background(0)
       currentMap = [[bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
@@ -114,6 +131,9 @@ function draw(){
         }
       } //runs through the entire map and converts each block from references to prefabs to unique objects
       currentMap[12][13].northShinC = neutralGrey
+      currentMap[8][8].hasProp = 1
+      currentMap[8][8].prop = amo
+      currentMap[8][8].prop.lootable = true
       currentMap[12][13].westMid = 0
       currentMap[12][13].eastMid = 0
       currentMap[12][13].westFace = 0
@@ -145,10 +165,19 @@ function draw(){
                 player.direction * 1024, 0, //which part of spritesheet to take
                 1024, 576) //how big the sprite being used is
       enviroRender()
-      mapDraw()
       player.equipped.render()
-      prevMouseX = mouseX
+      uiDraw()
+      if (keyIsDown(80)){
+        gamePart = 3
+        exitPointerLock()
+      }
       break;
+    case 3:
+      fill(pureRed)
+      rect(10, 100, 100, 50)
+      fill(neutralGrey)
+      textSize(25)
+      text('resume', 60, 125)
   }
 }
 
@@ -157,10 +186,17 @@ function mousePressed(){
     case 0:
       if (mouseX > 10 && mouseX < 110 && mouseY > 100 && mouseY < 150){
         gamePart = 1
+        requestPointerLock()
       }
       break;
     case 2:
       player.equipped.attack()
+      break;
+    case 3:
+      if (mouseX > 10 && mouseX < 110 && mouseY > 100 && mouseY < 150){
+        gamePart = 2
+        requestPointerLock()
+      }
       break;
   }
 }

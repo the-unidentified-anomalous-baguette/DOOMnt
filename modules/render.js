@@ -1126,9 +1126,10 @@ function enviroRender() {
   }
 } //checks where the player is and draws everything that needs to be seen
 
-function mapDraw() {
+function uiDraw() {
   fill([127, 127, 127, 127])
   rect(0, 0, 112, 112)
+  rect(948, 520, 124, 176)
   for (let i = -3; i < 4; i++) {
     for (let j = -3; j < 4; j++) {
       if (currentMap[player.coords[0] + i][player.coords[1] + j].floor == 1) {
@@ -1172,6 +1173,18 @@ function mapDraw() {
         strokeWeight(1)
         line(48 + 16 * j, 64 + 16 * i, 48 + 16 * j, 48 + 16 * i)
       }
+      if (currentMap[player.coords[0] + i][player.coords[1] + j].hasProp == 1){
+        image(currentMap[player.coords[0] + i][player.coords[1] + j].prop.spriteSheet,
+          48 + 16 * j, 48 + 16 * i, 16, 16,
+          currentMap[player.coords[0] + i][player.coords[1] + j].prop.spriteWidth * currentMap[player.coords[0] + i][player.coords[1] + j].prop.xFrame, currentMap[player.coords[0] + i][player.coords[1] + j].prop.spriteHeight * currentMap[player.coords[0] + i][player.coords[1] + j].prop.yFrame,
+          currentMap[player.coords[0] + i][player.coords[1] + j].prop.spriteWidth, currentMap[player.coords[0] + i][player.coords[1] + j].prop.spriteHeight)
+      }
+      if (currentMap[player.coords[0] + i][player.coords[1] + j].hasEnemy == 1){
+        image(currentMap[player.coords[0] + i][player.coords[1] + j].enemy.spriteSheet,
+          48 + 16 * j, 48 + 16 * i, 16, 16,
+          currentMap[player.coords[0] + i][player.coords[1] + j].enemy.spriteWidth * 5, currentMap[player.coords[0] + i][player.coords[1] + j].enemy.spriteHeight * 3,
+          currentMap[player.coords[0] + i][player.coords[1] + j].enemy.spriteWidth, currentMap[player.coords[0] + i][player.coords[1] + j].enemy.spriteHeight)
+      }
     }
   }
   image(mapSpriteSs,
@@ -1180,6 +1193,10 @@ function mapDraw() {
     100 * player.direction, 0,
     100, 100
   )
+  strokeWeight(2)
+  fill(0)
+  fill(255)
+  text(player.inv[player.equipped.amType] + '/' + invMaxes[player.equipped.amType], 990, 552)
   strokeWeight(1)
 }
 //end of drawing functions

@@ -10,4 +10,5 @@ function preload(){
     skySs = loadImage('assets/spriteSheets/skyboxes/demo-sky.png')
     gunSs = loadImage('assets/spriteSheets/weaponOverlays/rifle.png')
     mapSpriteSs = loadImage('assets/spriteSheets/minimapPlayer.png')
+    amoSs = loadImage('assets/spriteSheets/amo.png')
 }
