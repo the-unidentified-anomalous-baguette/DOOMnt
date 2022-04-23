@@ -454,6 +454,7 @@ class enemy extends entity{
       this.prevX = x
       this.prevY = y
       this.activeArea = activeArea
+      this.path = [this.noMove]
   }
   turnRight(){
     this.direction += 1
@@ -608,9 +609,103 @@ class enemy extends entity{
     }
   }
 
+  //bfs principle:
+  //  check every adjacent square
+  //  add checked movements to a list 
+  //  once one that leads to destination is found, move to final path array
+
   bfsToPlayer(){
-    if (player.coords[0] > this.activeArea[0] && player.coords[0] < this.activeArea[2] && player.coords[1] > this.activeArea[1] && player.coords[1] < this.activeArea[3]){
-      
+    if (player.coords[0] >= this.activeArea[0] && player.coords[0] <= this.activeArea[2] && player.coords[1] >= this.activeArea[1] && player.coords[1] <= this.activeArea[3]){
+      let paths = [[[this.y, this.x]]]
+      let pathFound = 0
+      let whichNode = 0
+      let pathNodes = []
+      while (pathFound == 0){
+        for (let i = 0; i < paths[paths.length - 1].length; i++){
+          //console.log('checking for success')
+          if (paths[paths.length - 1][i][0] == player.coords[0] && paths[paths.length - 1][i][1] == player.coords[1]){
+            pathFound = 1
+            whichNode = i
+            break;
+          }
+        }
+        if (pathFound == 0){
+          paths.push([])
+          for (let i = 0; i < paths[paths.length - 2].length; i++){
+            if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'north')){
+              paths[paths.length - 1].push([paths[paths.length - 2][i][0] - 1, paths[paths.length - 2][i][1], i])
+              if (paths.length >= 3){
+                for (let j = 0; j < paths[paths.length - 3].length; j++){
+                  if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                    paths[paths.length - 1].pop()
+                  }
+                }
+              }
+            }
+            if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'east')){
+              paths[paths.length - 1].push([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1] + 1, i])
+              if (paths.length >= 3){
+                for (let j = 0; j < paths[paths.length - 3].length; j++){
+                  if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                    paths[paths.length - 1].pop()
+                  }
+                }
+              }
+            }
+            if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'south')){
+              paths[paths.length - 1].push([paths[paths.length - 2][i][0] + 1, paths[paths.length - 2][i][1], i])
+              if (paths.length >= 3){
+                for (let j = 0; j < paths[paths.length - 3].length; j++){
+                  if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                    paths[paths.length - 1].pop()
+                  }
+                }
+              }
+            }
+            if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'west')){
+              paths[paths.length - 1].push([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1] - 1, i])
+              if (paths.length >= 3){
+                for (let j = 0; j < paths[paths.length - 3].length; j++){
+                  if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                    paths[paths.length - 1].pop()
+                  }
+                }
+              }
+            }
+          }
+          if (paths[paths.length - 1].length == 0){
+            console.log('no new nodes added')
+            pathFound = 1
+            whichNode = paths[paths.length - 2].length - 1
+            paths.pop()
+          }
+        }
+      }
+      for (let i = paths.length - 1; i >= 0; i -= 1){
+        pathNodes.unshift([paths[i][whichNode][0], paths[i][whichNode][1]])
+        whichNode = paths[i][whichNode][2]
+      }
+      for(let i = 1; i < pathNodes.length; i++){
+        this.path.push([pathNodes[i][0] - pathNodes[i - 1][0], pathNodes[i][1] - pathNodes[i - 1][1]])
+      }
     }
+    //console.log(this.path[0].ToString())
+    if (this.path[0] == undefined){
+      this.path.shift()
+    }
+  }
+
+  execPath(dY, dX){
+    if (dY == -1 && dX == 0){
+      this.moveNorth()
+    }
+    else if (dY == 0 && dX == 1){
+      this.moveEast()
+    }
+    else if (dY == 1 && dX == 0){
+      this.moveSouth()
+    }
+    else {this.moveWest()}
+    this.path.shift()
   }
 }

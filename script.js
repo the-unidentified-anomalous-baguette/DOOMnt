@@ -73,7 +73,7 @@ function setup(){
   canvas.parent('sketch-holder')
   frameRate(5)
   strokeWeight(1)
-  demoImp = new enemy(11, 11, 1, {direction: 4, spriteSheet: impSs, activeArea: [8, 8, 16, 16]}, 900 * 42/61, 900)
+  demoImp = new enemy(8, 16, 1, {direction: 4, spriteSheet: impSs, activeArea: [8, 8, 16, 21]}, 900 * 42/61, 900)
   greenImp = new enemy(11, 12, 5, {spriteSheet: greenImpSs, activeArea: [8, 8, 16, 16]}, 850 * 42/61, 850)
   noEnemy = new enemy(0, 0, 5, {spriteSheet: blankSs}, 0, 0)
   amo = new entity(8, 8, {spriteSheet: amoSs, spriteWidth: 25, spriteHeight: 25, xFrame: 0, yFrame: 0, animation: 'c', inv: [5]}, 300, 300)
@@ -105,15 +105,15 @@ function draw(){
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, bk, bk, bk, fB, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, bk, fC, fC, fC, fC, fC, fC, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, wW, fC, fC, fC, bk, bk, bk, bk, fC, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, wW, bk, fC, fC, fB, fB, bk, bk, fC, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, wW, bk, fC, fC, fC, sW, fB, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, fB, fC, fC, fC, fC, eW, bk, bk, bk, fC, fB, nW, nW, nW, fB, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, wW, fC, fC, fC, nW, fC, fC, fC, eW, fC, fC, fC, eW, bk, bk, bk, bk, eW, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, eW, bk, fC, fB, fB, fC, fC, bk, nW, fC, fC, fC, eW, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, bk, bk, bk, fC, fC, sW, fC, fC, fC, eW, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, fC, fC, sW, nW, wW, fC, fB, sW, sW, sW, fB, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, sW, sW, sW, sW, sW, sW, sW, sW, sW, sW, sW, sW, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, fC, sW, sW, sW, sW, sW, sW, sW, sW, sW, sW, fC, wW, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, eW, fC, sW, sW, sW, sW, sW, sW, sW, sW, fC, wW, wW, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, eW, eW, fC, sW, sW, sW, sW, sW, sW, fC, wW, wW, wW, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, fB, eW, eW, eW, eW, fC, fC, fC, fC, fC, wW, wW, wW, wW, wW, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, eW, eW, eW, fC, nW, nW, nW, nW, nW, fC, wW, wW, wW, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, eW, eW, fC, nW, nW, nW, nW, nW, nW, nW, fC, wW, wW, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, eW, fC, nW, nW, nW, nW, nW, nW, nW, nW, nW, fC, wW, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, fC, nW, nW, nW, nW, nW, nW, nW, nW, nW, nW, nW, fC, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
@@ -147,13 +147,15 @@ function draw(){
       currentMap[11][13].northMidC = pureRed
       currentMap[11][13].southMidC = pureRed
       currentMap[13][13].northMidC = neutralGrey
-      currentMap[11][11].hasEnemy = true
-      currentMap[12][11].hasEnemy = true
-      currentMap[11][11].enemy = demoImp
-      currentMap[12][11].enemy = greenImp
-      player.coords = [12, 12]
-      player.direction = 0
+      currentMap[16][8].hasEnemy = true
+      //currentMap[12][11].hasEnemy = true
+      currentMap[16][8].enemy = demoImp
+      //currentMap[12][11].enemy = greenImp
+      player.coords = [12, 17]
+      player.direction = 6
       gamePart = 2
+      demoImp.bfsToPlayer()
+      //demoImp.path = [[-1, 0], [-1, 0], [-1, 0], [0, 1], [0, 1], [0, 1]]
       textSize(30)
       break;
     case 2:
@@ -171,6 +173,14 @@ function draw(){
         gamePart = 3
         exitPointerLock()
       }
+      if (demoImp.path.length > 0){
+        demoImp.animation = 'm'
+        demoImp.execPath(demoImp.path[0][0], demoImp.path[0][1])
+      }
+      else if (this.x != player.coords[1] && this.y != player.coords[0]){
+        demoImp.bfsToPlayer()
+      }
+      // console.log(demoImp.path)
       break;
     case 3:
       fill(pureRed)
@@ -178,6 +188,7 @@ function draw(){
       fill(neutralGrey)
       textSize(25)
       text('resume', 60, 125)
+      break;
   }
 }
 
