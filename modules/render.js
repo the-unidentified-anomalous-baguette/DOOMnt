@@ -1182,7 +1182,7 @@ function uiDraw() {
       if (currentMap[player.coords[0] + i][player.coords[1] + j].hasEnemy == 1){
         image(currentMap[player.coords[0] + i][player.coords[1] + j].enemy.spriteSheet,
           48 + 16 * j, 48 + 16 * i, 16, 16,
-          currentMap[player.coords[0] + i][player.coords[1] + j].enemy.spriteWidth * 5, currentMap[player.coords[0] + i][player.coords[1] + j].enemy.spriteHeight * 3,
+          currentMap[player.coords[0] + i][player.coords[1] + j].enemy.spriteWidth * 12, 0,
           currentMap[player.coords[0] + i][player.coords[1] + j].enemy.spriteWidth, currentMap[player.coords[0] + i][player.coords[1] + j].enemy.spriteHeight)
       }
     }

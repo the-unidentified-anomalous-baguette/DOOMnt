@@ -38,115 +38,120 @@ class weapon{
   }
 
   basicFiring(){
-    switch (player.direction){
-      case 0:
-        if (currentMap[player.coords[0]][player.coords[1]].northMid == 0 && currentMap[player.coords[0] - 1][player.coords[1]].southMid == 0){
-          if (currentMap[player.coords[0] - 1][player.coords[1]].hasEnemy == 1){
-            currentMap[player.coords[0] - 1][player.coords[1]].enemy.hit('ballistic')
+    if (currentMap[player.coords[0]][player.coords[1]].hasEnemy == 1){
+      currentMap[player.coords[0]][player.coords[1]].enemy.hit('ballistic')
+    }
+    else {
+      switch (player.direction){
+        case 0:
+          if (currentMap[player.coords[0]][player.coords[1]].northMid == 0 && currentMap[player.coords[0] - 1][player.coords[1]].southMid == 0){
+            if (currentMap[player.coords[0] - 1][player.coords[1]].hasEnemy == 1){
+              currentMap[player.coords[0] - 1][player.coords[1]].enemy.hit('ballistic')
+            }
+            else if (currentMap[player.coords[0] - 1][player.coords[1]].northMid == 0 && currentMap[player.coords[0] - 2][player.coords[1]].southMid == 0 && currentMap[player.coords[0] - 2][player.coords[1]].hasEnemy == 1){
+              currentMap[player.coords[0] - 2][player.coords[1]].enemy.hit('ballistic')
+            }
           }
-          else if (currentMap[player.coords[0] - 1][player.coords[1]].northMid == 0 && currentMap[player.coords[0] - 2][player.coords[1]].southMid == 0 && currentMap[player.coords[0] - 2][player.coords[1]].hasEnemy == 1){
-            currentMap[player.coords[0] - 2][player.coords[1]].enemy.hit('ballistic')
+          break;
+        case 1:
+          if (currentMap[player.coords[0]][player.coords[1]].northMid == 0 && currentMap[player.coords[0] - 1][player.coords[1]].southMid == 0 && 
+              currentMap[player.coords[0]][player.coords[1]].eastMid == 0 && currentMap[player.coords[0]][player.coords[1] + 1].westMid == 0 && 
+              currentMap[player.coords[0]][player.coords[1] + 1].northMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] + 1].southMid == 0 &&
+              currentMap[player.coords[0] - 1][player.coords[1]].eastMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] + 1].westMid == 0){
+            if (currentMap[player.coords[0] - 1][player.coords[1] + 1].hasEnemy == 1){
+              currentMap[player.coords[0] - 1][player.coords[1] + 1].enemy.hit('ballistic')
+            }
+            else if (currentMap[player.coords[0] - 1][player.coords[1] + 1].northMid == 0 && currentMap[player.coords[0] - 2][player.coords[1]+ 1].southMid == 0 && 
+                    currentMap[player.coords[0] - 1][player.coords[1] + 1].eastMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] + 2].westMid == 0 && 
+                    currentMap[player.coords[0] - 1][player.coords[1] + 2].northMid == 0 && currentMap[player.coords[0] - 2][player.coords[1] + 2].southMid == 0&&
+                    currentMap[player.coords[0] - 2][player.coords[1] + 1].eastMid == 0 && currentMap[player.coords[0] - 2][player.coords[1] + 2].westMid == 0 &&
+                    currentMap[player.coords[0] - 2][player.coords[1] + 2].hasEnemy == 1){
+              currentMap[player.coords[0] - 2][player.coords[1] + 2].enemy.hit('ballistic')
+            }
           }
-        }
-        break;
-      case 1:
-        if (currentMap[player.coords[0]][player.coords[1]].northMid == 0 && currentMap[player.coords[0] - 1][player.coords[1]].southMid == 0 && 
-            currentMap[player.coords[0]][player.coords[1]].eastMid == 0 && currentMap[player.coords[0]][player.coords[1] + 1].westMid == 0 && 
-            currentMap[player.coords[0]][player.coords[1] + 1].northMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] + 1].southMid == 0 &&
-            currentMap[player.coords[0] - 1][player.coords[1]].eastMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] + 1].westMid == 0){
-          if (currentMap[player.coords[0] - 1][player.coords[1] + 1].hasEnemy == 1){
-            currentMap[player.coords[0] - 1][player.coords[1] + 1].enemy.hit('ballistic')
+          break;
+        case 2:
+          if (currentMap[player.coords[0]][player.coords[1]].eastMid == 0 && currentMap[player.coords[0]][player.coords[1] + 1].westMid == 0){
+            if (currentMap[player.coords[0]][player.coords[1] + 1].hasEnemy == 1){
+              currentMap[player.coords[0]][player.coords[1] + 1].enemy.hit('ballistic')
+            }
+            else if (currentMap[player.coords[0]][player.coords[1] + 1].eastMid == 0 && currentMap[player.coords[0]][player.coords[1] + 2].westMid == 0 && currentMap[player.coords[0]][player.coords[1] + 2].hasEnemy == 1){
+              currentMap[player.coords[0]][player.coords[1] + 2].enemy.hit('ballistic')
+            }
           }
-          else if (currentMap[player.coords[0] - 1][player.coords[1] + 1].northMid == 0 && currentMap[player.coords[0] - 2][player.coords[1]+ 1].southMid == 0 && 
-                   currentMap[player.coords[0] - 1][player.coords[1] + 1].eastMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] + 2].westMid == 0 && 
-                   currentMap[player.coords[0] - 1][player.coords[1] + 2].northMid == 0 && currentMap[player.coords[0] - 2][player.coords[1] + 2].southMid == 0&&
-                   currentMap[player.coords[0] - 2][player.coords[1] + 1].eastMid == 0 && currentMap[player.coords[0] - 2][player.coords[1] + 2].westMid == 0 &&
-                   currentMap[player.coords[0] - 2][player.coords[1] + 2].hasEnemy == 1){
-            currentMap[player.coords[0] - 2][player.coords[1] + 2].enemy.hit('ballistic')
+          break;
+        case 3:
+          if (currentMap[player.coords[0]][player.coords[1]].eastMid == 0 && currentMap[player.coords[0]][player.coords[1] + 1].westMid == 0 && 
+            currentMap[player.coords[0]][player.coords[1]].southMid == 0 && currentMap[player.coords[0] + 1][player.coords[1]].northMid == 0 && 
+            currentMap[player.coords[0] + 1][player.coords[1]].eastMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] + 1].westMid == 0 &&
+            currentMap[player.coords[0]][player.coords[1] + 1].southMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] + 1].northMid == 0){
+            if (currentMap[player.coords[0] + 1][player.coords[1] + 1].hasEnemy == 1){
+              currentMap[player.coords[0] + 1][player.coords[1] + 1].enemy.hit('ballistic')
+            }
+            else if (currentMap[player.coords[0] + 1][player.coords[1] + 1].eastMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] + 2].westMid == 0 && 
+                    currentMap[player.coords[0] + 1][player.coords[1] + 1].southMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] + 1].northMid == 0 && 
+                    currentMap[player.coords[0] + 2][player.coords[1] + 1].eastMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] + 2].westMid == 0&&
+                    currentMap[player.coords[0] + 1][player.coords[1] + 2].southMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] + 2].northMid == 0 &&
+                    currentMap[player.coords[0] + 2][player.coords[1] + 2].hasEnemy == 1){
+              currentMap[player.coords[0] + 2][player.coords[1] + 2].enemy.hit('ballistic')
+            }
           }
-        }
-        break;
-      case 2:
-        if (currentMap[player.coords[0]][player.coords[1]].eastMid == 0 && currentMap[player.coords[0]][player.coords[1] + 1].westMid == 0){
-          if (currentMap[player.coords[0]][player.coords[1] + 1].hasEnemy == 1){
-            currentMap[player.coords[0]][player.coords[1] + 1].enemy.hit('ballistic')
+          break;
+        case 4:
+          if (currentMap[player.coords[0]][player.coords[1]].southMid == 0 && currentMap[player.coords[0] + 1][player.coords[1]].northMid == 0){
+            if (currentMap[player.coords[0] + 1][player.coords[1]].hasEnemy == 1){
+              currentMap[player.coords[0] + 1][player.coords[1]].enemy.hit('ballistic')
+            }
+            else if (currentMap[player.coords[0] + 1][player.coords[1]].southMid == 0 && currentMap[player.coords[0] + 2][player.coords[1]].northMid == 0 && currentMap[player.coords[0] + 2][player.coords[1]].hasEnemy == 1){
+              currentMap[player.coords[0] + 2][player.coords[1]].enemy.hit('ballistic')
+            }
           }
-          else if (currentMap[player.coords[0]][player.coords[1] + 1].eastMid == 0 && currentMap[player.coords[0]][player.coords[1] + 2].westMid == 0 && currentMap[player.coords[0]][player.coords[1] + 2].hasEnemy == 1){
-            currentMap[player.coords[0]][player.coords[1] + 2].enemy.hit('ballistic')
+          break;
+        case 5:
+          if (currentMap[player.coords[0]][player.coords[1]].southMid == 0 && currentMap[player.coords[0] + 1][player.coords[1]].northMid == 0 && 
+            currentMap[player.coords[0]][player.coords[1]].westMid == 0 && currentMap[player.coords[0]][player.coords[1] - 1].eastMid == 0 && 
+            currentMap[player.coords[0]][player.coords[1] - 1].southMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] - 1].northMid == 0 &&
+            currentMap[player.coords[0] + 1][player.coords[1]].westMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] - 1].eastMid == 0){
+            if (currentMap[player.coords[0] + 1][player.coords[1] - 1].hasEnemy == 1){
+              currentMap[player.coords[0] + 1][player.coords[1] - 1].enemy.hit('ballistic')
+            }
+            else if (currentMap[player.coords[0] + 1][player.coords[1] - 1].southMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] - 1].northMid == 0 && 
+                    currentMap[player.coords[0] + 1][player.coords[1] - 1].westMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] - 2].eastMid == 0 && 
+                    currentMap[player.coords[0] + 1][player.coords[1] - 2].southMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] - 2].northMid == 0&&
+                    currentMap[player.coords[0] + 2][player.coords[1] - 1].westMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] - 2].eastMid == 0 &&
+                    currentMap[player.coords[0] + 2][player.coords[1] - 2].hasEnemy == 1){
+              currentMap[player.coords[0] + 2][player.coords[1] - 2].enemy.hit('ballistic')
+            }
           }
-        }
-        break;
-      case 3:
-        if (currentMap[player.coords[0]][player.coords[1]].eastMid == 0 && currentMap[player.coords[0]][player.coords[1] + 1].westMid == 0 && 
-          currentMap[player.coords[0]][player.coords[1]].southMid == 0 && currentMap[player.coords[0] + 1][player.coords[1]].northMid == 0 && 
-          currentMap[player.coords[0] + 1][player.coords[1]].eastMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] + 1].westMid == 0 &&
-          currentMap[player.coords[0]][player.coords[1] + 1].southMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] + 1].northMid == 0){
-          if (currentMap[player.coords[0] + 1][player.coords[1] + 1].hasEnemy == 1){
-            currentMap[player.coords[0] + 1][player.coords[1] + 1].enemy.hit('ballistic')
+          break;
+        case 6:
+          if (currentMap[player.coords[0]][player.coords[1]].westMid == 0 && currentMap[player.coords[0]][player.coords[1] - 1].eastMid == 0){
+            if (currentMap[player.coords[0]][player.coords[1] - 1].hasEnemy == 1){
+              currentMap[player.coords[0]][player.coords[1] - 1].enemy.hit('ballistic')
+            }
+            else if (currentMap[player.coords[0]][player.coords[1] - 1].westMid == 0 && currentMap[player.coords[0]][player.coords[1] - 2].eastMid == 0 && currentMap[player.coords[0]][player.coords[1] - 2].hasEnemy == 1){
+              currentMap[player.coords[0]][player.coords[1] - 2].enemy.hit('ballistic')
+            }
           }
-          else if (currentMap[player.coords[0] + 1][player.coords[1] + 1].eastMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] + 2].westMid == 0 && 
-                  currentMap[player.coords[0] + 1][player.coords[1] + 1].southMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] + 1].northMid == 0 && 
-                  currentMap[player.coords[0] + 2][player.coords[1] + 1].eastMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] + 2].westMid == 0&&
-                  currentMap[player.coords[0] + 1][player.coords[1] + 2].southMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] + 2].northMid == 0 &&
-                  currentMap[player.coords[0] + 2][player.coords[1] + 2].hasEnemy == 1){
-            currentMap[player.coords[0] + 2][player.coords[1] + 2].enemy.hit('ballistic')
+          break;
+        case 7:
+          if (currentMap[player.coords[0]][player.coords[1]].westMid == 0 && currentMap[player.coords[0]][player.coords[1] - 1].eastMid == 0 && 
+            currentMap[player.coords[0]][player.coords[1]].northMid == 0 && currentMap[player.coords[0] - 1][player.coords[1]].southMid == 0 && 
+            currentMap[player.coords[0] - 1][player.coords[1]].westMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] - 1].eastMid == 0 &&
+            currentMap[player.coords[0]][player.coords[1] - 1].northMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] - 1].southMid == 0){
+            if (currentMap[player.coords[0] - 1][player.coords[1] - 1].hasEnemy == 1){
+              currentMap[player.coords[0] - 1][player.coords[1] - 1].enemy.hit('ballistic')
+            }
+            else if (currentMap[player.coords[0] - 1][player.coords[1] - 1].westMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] - 2].eastMid == 0 && 
+                    currentMap[player.coords[0] - 1][player.coords[1] - 1].northMid == 0 && currentMap[player.coords[0] - 2][player.coords[1] - 1].southMid == 0 && 
+                    currentMap[player.coords[0] - 2][player.coords[1] - 1].westMid == 0 && currentMap[player.coords[0] - 2][player.coords[1] - 2].eastMid == 0&&
+                    currentMap[player.coords[0] - 1][player.coords[1] - 2].northMid == 0 && currentMap[player.coords[0] - 2][player.coords[1] - 2].southMid == 0 &&
+                    currentMap[player.coords[0] - 2][player.coords[1] - 2].hasEnemy == 1){
+              currentMap[player.coords[0] - 2][player.coords[1] - 2].enemy.hit('ballistic')
+            }
           }
-        }
-        break;
-      case 4:
-        if (currentMap[player.coords[0]][player.coords[1]].southMid == 0 && currentMap[player.coords[0] + 1][player.coords[1]].northMid == 0){
-          if (currentMap[player.coords[0] + 1][player.coords[1]].hasEnemy == 1){
-            currentMap[player.coords[0] + 1][player.coords[1]].enemy.hit('ballistic')
-          }
-          else if (currentMap[player.coords[0] + 1][player.coords[1]].southMid == 0 && currentMap[player.coords[0] + 2][player.coords[1]].northMid == 0 && currentMap[player.coords[0] + 2][player.coords[1]].hasEnemy == 1){
-            currentMap[player.coords[0] + 2][player.coords[1]].enemy.hit('ballistic')
-          }
-        }
-        break;
-      case 5:
-        if (currentMap[player.coords[0]][player.coords[1]].southMid == 0 && currentMap[player.coords[0] + 1][player.coords[1]].northMid == 0 && 
-          currentMap[player.coords[0]][player.coords[1]].westMid == 0 && currentMap[player.coords[0]][player.coords[1] - 1].eastMid == 0 && 
-          currentMap[player.coords[0]][player.coords[1] - 1].southMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] - 1].northMid == 0 &&
-          currentMap[player.coords[0] + 1][player.coords[1]].westMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] - 1].eastMid == 0){
-          if (currentMap[player.coords[0] + 1][player.coords[1] - 1].hasEnemy == 1){
-            currentMap[player.coords[0] + 1][player.coords[1] - 1].enemy.hit('ballistic')
-          }
-          else if (currentMap[player.coords[0] + 1][player.coords[1] - 1].southMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] - 1].northMid == 0 && 
-                   currentMap[player.coords[0] + 1][player.coords[1] - 1].westMid == 0 && currentMap[player.coords[0] + 1][player.coords[1] - 2].eastMid == 0 && 
-                   currentMap[player.coords[0] + 1][player.coords[1] - 2].southMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] - 2].northMid == 0&&
-                   currentMap[player.coords[0] + 2][player.coords[1] - 1].westMid == 0 && currentMap[player.coords[0] + 2][player.coords[1] - 2].eastMid == 0 &&
-                   currentMap[player.coords[0] + 2][player.coords[1] - 2].hasEnemy == 1){
-            currentMap[player.coords[0] + 2][player.coords[1] - 2].enemy.hit('ballistic')
-          }
-        }
-        break;
-      case 6:
-        if (currentMap[player.coords[0]][player.coords[1]].westMid == 0 && currentMap[player.coords[0]][player.coords[1] - 1].eastMid == 0){
-          if (currentMap[player.coords[0]][player.coords[1] - 1].hasEnemy == 1){
-            currentMap[player.coords[0]][player.coords[1] - 1].enemy.hit('ballistic')
-          }
-          else if (currentMap[player.coords[0]][player.coords[1] - 1].westMid == 0 && currentMap[player.coords[0]][player.coords[1] - 2].eastMid == 0 && currentMap[player.coords[0]][player.coords[1] - 2].hasEnemy == 1){
-            currentMap[player.coords[0]][player.coords[1] - 2].enemy.hit('ballistic')
-          }
-        }
-        break;
-      case 7:
-        if (currentMap[player.coords[0]][player.coords[1]].westMid == 0 && currentMap[player.coords[0]][player.coords[1] - 1].eastMid == 0 && 
-          currentMap[player.coords[0]][player.coords[1]].northMid == 0 && currentMap[player.coords[0] - 1][player.coords[1]].southMid == 0 && 
-          currentMap[player.coords[0] - 1][player.coords[1]].westMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] - 1].eastMid == 0 &&
-          currentMap[player.coords[0]][player.coords[1] - 1].northMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] - 1].southMid == 0){
-          if (currentMap[player.coords[0] - 1][player.coords[1] - 1].hasEnemy == 1){
-            currentMap[player.coords[0] - 1][player.coords[1] - 1].enemy.hit('ballistic')
-          }
-          else if (currentMap[player.coords[0] - 1][player.coords[1] - 1].westMid == 0 && currentMap[player.coords[0] - 1][player.coords[1] - 2].eastMid == 0 && 
-                  currentMap[player.coords[0] - 1][player.coords[1] - 1].northMid == 0 && currentMap[player.coords[0] - 2][player.coords[1] - 1].southMid == 0 && 
-                  currentMap[player.coords[0] - 2][player.coords[1] - 1].westMid == 0 && currentMap[player.coords[0] - 2][player.coords[1] - 2].eastMid == 0&&
-                  currentMap[player.coords[0] - 1][player.coords[1] - 2].northMid == 0 && currentMap[player.coords[0] - 2][player.coords[1] - 2].southMid == 0 &&
-                  currentMap[player.coords[0] - 2][player.coords[1] - 2].hasEnemy == 1){
-            currentMap[player.coords[0] - 2][player.coords[1] - 2].enemy.hit('ballistic')
-          }
-        }
-        break;
+          break;
+      }
     }
   }
 }
@@ -455,6 +460,7 @@ class enemy extends entity{
       this.prevY = y
       this.activeArea = activeArea
       this.path = [this.noMove]
+      this.alive = true
   }
   turnRight(){
     this.direction += 1
@@ -472,46 +478,90 @@ class enemy extends entity{
     this.frame += 1
     if (this.frame >= 4){this.frame = 0}
   }
+  facePlayer(){
+    let relDir = this.direction - player.direction
+    if (relDir < 0){
+      relDir += 8
+    }
+    if (relDir > 4){
+      this.turnLeft()
+    }
+    else if (relDir < 4){
+      this.turnRight()
+    }
+  }
   
   moveNorth(){
-    if(isMoveValid([this.y, this.x], 'north')){
+    if (this.direction > 4){
+      this.turnRight()
+    }
+    else if (this.direction > 0){
+      this.turnLeft()
+    }
+    else if (isMoveValid([this.y, this.x], 'north') && this.direction == 0){
       currentMap[this.y][this.x].hasEnemy = 0
       this.y -= 1
       currentMap[this.y][this.x].hasEnemy = 1
       currentMap[this.y][this.x].enemy = this
+      this.frame += 1
+      if (this.frame >= 4){this.frame = 0}
+      return true
     }
-    this.frame += 1
-    if (this.frame >= 4){this.frame = 0}
+    return false
   }
   moveEast(){
-    if(isMoveValid([this.y, this.x], 'east')){
+    if (this.direction > 6 || this.direction < 2){
+      this.turnRight()
+    }
+    else if (this.direction > 2){
+      this.turnLeft()
+    }
+    else if (isMoveValid([this.y, this.x], 'east') && this.direction == 2){
       currentMap[this.y][this.x].hasEnemy = 0
       this.x += 1
       currentMap[this.y][this.x].hasEnemy = 1
       currentMap[this.y][this.x].enemy = this
+      this.frame += 1
+      if (this.frame >= 4){this.frame = 0}
+      return true
     }
-    this.frame += 1
-    if (this.frame >= 4){this.frame = 0}
+    return false
   }
   moveSouth(){
-    if(isMoveValid([this.y, this.x], 'south')){
+    if (this.direction < 4){
+      this.turnRight()
+    }
+    else if (this.direction > 4){
+      this.turnLeft()
+    }
+    else if (isMoveValid([this.y, this.x], 'south') && this.direction == 4){
       currentMap[this.y][this.x].hasEnemy = 0
       this.y += 1
       currentMap[this.y][this.x].hasEnemy = 1
       currentMap[this.y][this.x].enemy = this
+      this.frame += 1
+      if (this.frame >= 4){this.frame = 0}
+      return true
     }
-    this.frame += 1
-    if (this.frame >= 4){this.frame = 0}
+    return false
   }
   moveWest(){
-    if(isMoveValid([this.y, this.x], 'west')){
+    if (this.direction < 6 && this.direction >= 3){
+      this.turnRight()
+    }
+    else if (this.direction > 6 || this.direction < 3){
+      this.turnLeft()
+    }
+    else if (isMoveValid([this.y, this.x], 'west') && this.direction == 6){
       currentMap[this.y][this.x].hasEnemy = 0
       this.x -= 1
       currentMap[this.y][this.x].hasEnemy = 1
       currentMap[this.y][this.x].enemy = this
+      this.frame += 1
+      if (this.frame >= 4){this.frame = 0}
+      return true
     }
-    this.frame += 1
-    if (this.frame >= 4){this.frame = 0}
+    return false
   }
 
   drawMe(x, y, ceiling){
@@ -588,6 +638,12 @@ class enemy extends entity{
           currentMap[this.y][this.x].hasProp = 1
         }
         break;
+      case 'a':
+        image(this.spriteSheet, //image to be used
+              x - this.renderWidth / 2 * maxHpcnt, y - this.renderHeight * maxHpcnt, //where to place top-left corner
+              this.renderWidth * maxHpcnt, this.renderHeight * maxHpcnt, //how big to draw
+              (relDir + 5) * this.spriteWidth, (this.frame + 3) * this.spriteHeight, //which part of spritesheet to take
+              this.spriteWidth, this.spriteHeight) //how big the sprite being used is
     }
   }
 
@@ -605,6 +661,7 @@ class enemy extends entity{
       if (this.hp <= 0){
         this.animation = 'db'
         this.frame = 0
+        this.alive = false
       }
     }
   }
@@ -620,92 +677,151 @@ class enemy extends entity{
       let pathFound = 0
       let whichNode = 0
       let pathNodes = []
+      let onDupe = false
+      if (this.x == player.coords[1] && this.y == player.coords[0]){
+        pathFound = 1
+      }
       while (pathFound == 0){
-        for (let i = 0; i < paths[paths.length - 1].length; i++){
-          //console.log('checking for success')
-          if (paths[paths.length - 1][i][0] == player.coords[0] && paths[paths.length - 1][i][1] == player.coords[1]){
-            pathFound = 1
-            whichNode = i
-            break;
+        paths.push([])
+        for (let i = 0; i < paths[paths.length - 2].length; i++){ //checking for new nodes
+          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'north')){
+            onDupe = false
+            paths[paths.length - 1].push([paths[paths.length - 2][i][0] - 1, paths[paths.length - 2][i][1], i])
+            if (paths[paths.length - 1][paths[paths.length - 1].length - 1][0] == player.coords[0] && paths[paths.length - 1][paths[paths.length - 1].length - 1][1] == player.coords[1]){
+              pathFound = 1
+              whichNode = paths[paths.length - 1].length - 1
+              break;
+            }
+            if (paths.length >= 3){
+              for (let j = 0; j < paths[paths.length - 3].length; j++){
+                if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  onDupe = true
+                  break;
+                }
+              }
+            }
+            if (onDupe == false){
+              for (let j = 0; j < paths[paths.length - 1].length - 2; j++){
+                if (paths[paths.length - 1][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 1][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  break;
+                }
+              }
+            }
+          }
+          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'east')){
+            onDupe = false
+            paths[paths.length - 1].push([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1] + 1, i])
+            if (paths[paths.length - 1][paths[paths.length - 1].length - 1][0] == player.coords[0] && paths[paths.length - 1][paths[paths.length - 1].length - 1][1] == player.coords[1]){
+              pathFound = 1
+              whichNode = paths[paths.length - 1].length - 1
+              break;
+            }
+            if (paths.length >= 3){
+              for (let j = 0; j < paths[paths.length - 3].length; j++){
+                if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  onDupe = true
+                  break;
+                }
+              }
+            }
+            if (onDupe == false){
+              for (let j = 0; j < paths[paths.length - 1].length - 2; j++){
+                if (paths[paths.length - 1][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 1][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  break;
+                }
+              }
+            }
+          }
+          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'south')){
+            onDupe = false
+            paths[paths.length - 1].push([paths[paths.length - 2][i][0] + 1, paths[paths.length - 2][i][1], i])
+            if (paths[paths.length - 1][paths[paths.length - 1].length - 1][0] == player.coords[0] && paths[paths.length - 1][paths[paths.length - 1].length - 1][1] == player.coords[1]){
+              pathFound = 1
+              whichNode = paths[paths.length - 1].length - 1
+              break;
+            }
+            if (paths.length >= 3){
+              for (let j = 0; j < paths[paths.length - 3].length; j++){
+                if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  onDupe = true
+                  break;
+                }
+              }
+            }
+            if (onDupe == false){
+              for (let j = 0; j < paths[paths.length - 1].length - 2; j++){
+                if (paths[paths.length - 1][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 1][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  break;
+                }
+              }
+            }
+          }
+          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'west')){
+            onDupe = false
+            paths[paths.length - 1].push([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1] - 1, i])
+            if (paths[paths.length - 1][paths[paths.length - 1].length - 1][0] == player.coords[0] && paths[paths.length - 1][paths[paths.length - 1].length - 1][1] == player.coords[1]){
+              pathFound = 1
+              whichNode = paths[paths.length - 1].length - 1
+              break;
+            }
+            if (paths.length >= 3){
+              for (let j = 0; j < paths[paths.length - 3].length; j++){
+                if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  onDupe = true
+                  break;
+                }
+              }
+            }
+            if (onDupe == false){
+              for (let j = 0; j < paths[paths.length - 1].length - 2; j++){
+                if (paths[paths.length - 1][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 1][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  break;
+                }
+              }
+            }
           }
         }
-        if (pathFound == 0){
-          paths.push([])
-          for (let i = 0; i < paths[paths.length - 2].length; i++){
-            if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'north')){
-              paths[paths.length - 1].push([paths[paths.length - 2][i][0] - 1, paths[paths.length - 2][i][1], i])
-              if (paths.length >= 3){
-                for (let j = 0; j < paths[paths.length - 3].length; j++){
-                  if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
-                    paths[paths.length - 1].pop()
-                  }
-                }
-              }
-            }
-            if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'east')){
-              paths[paths.length - 1].push([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1] + 1, i])
-              if (paths.length >= 3){
-                for (let j = 0; j < paths[paths.length - 3].length; j++){
-                  if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
-                    paths[paths.length - 1].pop()
-                  }
-                }
-              }
-            }
-            if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'south')){
-              paths[paths.length - 1].push([paths[paths.length - 2][i][0] + 1, paths[paths.length - 2][i][1], i])
-              if (paths.length >= 3){
-                for (let j = 0; j < paths[paths.length - 3].length; j++){
-                  if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
-                    paths[paths.length - 1].pop()
-                  }
-                }
-              }
-            }
-            if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'west')){
-              paths[paths.length - 1].push([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1] - 1, i])
-              if (paths.length >= 3){
-                for (let j = 0; j < paths[paths.length - 3].length; j++){
-                  if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
-                    paths[paths.length - 1].pop()
-                  }
-                }
-              }
-            }
-          }
-          if (paths[paths.length - 1].length == 0){
-            console.log('no new nodes added')
-            pathFound = 1
-            whichNode = paths[paths.length - 2].length - 1
-            paths.pop()
-          }
+        if (paths[paths.length - 1].length == 0 || paths[paths.length - 1].length >= 100){ //stop pathing if player can't be found or searching gone too long
+          pathFound = 1
+          whichNode = paths[paths.length - 2].length - 1
+          paths.pop()
         }
       }
-      for (let i = paths.length - 1; i >= 0; i -= 1){
+      for (let i = paths.length - 1; i >= 0; i -= 1){ //create correct path
         pathNodes.unshift([paths[i][whichNode][0], paths[i][whichNode][1]])
         whichNode = paths[i][whichNode][2]
       }
-      for(let i = 1; i < pathNodes.length; i++){
+      for(let i = 1; i < pathNodes.length; i++){ //make path readable
         this.path.push([pathNodes[i][0] - pathNodes[i - 1][0], pathNodes[i][1] - pathNodes[i - 1][1]])
       }
     }
-    //console.log(this.path[0].ToString())
     if (this.path[0] == undefined){
       this.path.shift()
     }
   }
 
   execPath(dY, dX){
+    let hasMoved = false
     if (dY == -1 && dX == 0){
-      this.moveNorth()
+      hasMoved = this.moveNorth()
     }
     else if (dY == 0 && dX == 1){
-      this.moveEast()
+      hasMoved = this.moveEast()
     }
     else if (dY == 1 && dX == 0){
-      this.moveSouth()
+      hasMoved = this.moveSouth()
     }
-    else {this.moveWest()}
-    this.path.shift()
+    else {hasMoved = this.moveWest()}
+    if (hasMoved == true){
+      this.path.shift()
+    }
   }
 }

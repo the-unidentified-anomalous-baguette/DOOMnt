@@ -73,7 +73,7 @@ function setup(){
   canvas.parent('sketch-holder')
   frameRate(5)
   strokeWeight(1)
-  demoImp = new enemy(8, 16, 1, {direction: 4, spriteSheet: impSs, activeArea: [8, 8, 16, 21]}, 900 * 42/61, 900)
+  demoImp = new enemy(8, 8, 1, {direction: 4, spriteSheet: impSs, spriteWidth: 84, spriteHeight: 122, activeArea: [8, 8, 21, 21]}, 900 * 42/61, 900)
   greenImp = new enemy(11, 12, 5, {spriteSheet: greenImpSs, activeArea: [8, 8, 16, 16]}, 850 * 42/61, 850)
   noEnemy = new enemy(0, 0, 5, {spriteSheet: blankSs}, 0, 0)
   amo = new entity(8, 8, {spriteSheet: amoSs, spriteWidth: 25, spriteHeight: 25, xFrame: 0, yFrame: 0, animation: 'c', inv: [5]}, 300, 300)
@@ -104,20 +104,28 @@ function draw(){
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, bk, bk, bk, fB, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, sW, sW, sW, sW, sW, sW, sW, sW, sW, sW, sW, sW, fC, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, fC, sW, sW, sW, sW, sW, sW, sW, sW, sW, sW, fC, wW, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, eW, fC, sW, sW, sW, sW, sW, sW, sW, sW, fC, wW, wW, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, eW, eW, fC, sW, sW, sW, sW, sW, sW, fC, wW, wW, wW, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, fB, eW, eW, eW, eW, fC, fC, fC, fC, fC, wW, wW, wW, wW, wW, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, eW, eW, eW, fC, nW, nW, nW, nW, nW, fC, wW, wW, wW, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, eW, eW, fC, nW, nW, nW, nW, nW, nW, nW, fC, wW, wW, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, eW, fC, nW, nW, nW, nW, nW, nW, nW, nW, nW, fC, wW, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, fC, nW, nW, nW, nW, nW, nW, nW, nW, nW, nW, nW, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, fB, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
@@ -130,29 +138,30 @@ function draw(){
           currentMap[i][j].material = ['grass', 'mud', 'shingle', 'snow', 'solid'][Math.floor(random(0, 5))]
         }
       } //runs through the entire map and converts each block from references to prefabs to unique objects
-      currentMap[12][13].northShinC = neutralGrey
-      currentMap[8][8].hasProp = 1
-      currentMap[8][8].prop = amo
-      currentMap[8][8].prop.lootable = true
-      currentMap[12][13].westMid = 0
-      currentMap[12][13].eastMid = 0
-      currentMap[12][13].westFace = 0
-      currentMap[12][13].eastFace = 0
-      currentMap[13][13].northMid = 1
-      currentMap[12][13].knee = 1
-      currentMap[12][13].head = 1
-      currentMap[12][8].floorC = pureRed
-      currentMap[12][13].head = 1
-      currentMap[11][13].southMid = 1
-      currentMap[11][13].northMidC = pureRed
-      currentMap[11][13].southMidC = pureRed
-      currentMap[13][13].northMidC = neutralGrey
-      currentMap[16][8].hasEnemy = true
+      // currentMap[12][13].northShinC = neutralGrey
+      // currentMap[8][8].hasProp = 1
+      // currentMap[8][8].prop = amo
+      // currentMap[8][8].prop.lootable = true
+      // currentMap[12][13].westMid = 0
+      // currentMap[12][13].eastMid = 0
+      // currentMap[12][13].westFace = 0
+      // currentMap[12][13].eastFace = 0
+      // currentMap[13][13].northMid = 1
+      // currentMap[12][13].knee = 1
+      // currentMap[12][13].head = 1
+      // currentMap[12][8].floorC = pureRed
+      // currentMap[12][13].head = 1
+      // currentMap[11][13].southMid = 1
+      // currentMap[11][13].northMidC = pureRed
+      // currentMap[11][13].southMidC = pureRed
+      // currentMap[13][13].northMidC = neutralGrey
+      currentMap[16][16] = fB
+      currentMap[8][8].hasEnemy = true
       //currentMap[12][11].hasEnemy = true
-      currentMap[16][8].enemy = demoImp
+      currentMap[8][8].enemy = demoImp
       //currentMap[12][11].enemy = greenImp
-      player.coords = [12, 17]
-      player.direction = 6
+      player.coords = [15, 15]
+      player.direction = 0
       gamePart = 2
       demoImp.bfsToPlayer()
       //demoImp.path = [[-1, 0], [-1, 0], [-1, 0], [0, 1], [0, 1], [0, 1]]
@@ -173,14 +182,22 @@ function draw(){
         gamePart = 3
         exitPointerLock()
       }
-      if (demoImp.path.length > 0){
-        demoImp.animation = 'm'
-        demoImp.execPath(demoImp.path[0][0], demoImp.path[0][1])
+      if (demoImp.alive && demoImp.animation != 'a'){
+        if (demoImp.path.length > 0){
+          demoImp.animation = 'm'
+          demoImp.execPath(demoImp.path[0][0], demoImp.path[0][1])
+        }
+        else if (demoImp.x != player.coords[1] || demoImp.y != player.coords[0]){
+          demoImp.bfsToPlayer()
+        }
+        else {
+          demoImp.facePlayer()
+          if (demoImp.direction - player.direction == 4 || demoImp.direction - player.direction == -4){
+            demoImp.animation = 'a'
+          }
+        }
       }
-      else if (this.x != player.coords[1] && this.y != player.coords[0]){
-        demoImp.bfsToPlayer()
-      }
-      // console.log(demoImp.path)
+      //console.log(demoImp.path)
       break;
     case 3:
       fill(pureRed)
@@ -201,6 +218,7 @@ function mousePressed(){
       }
       break;
     case 2:
+      requestPointerLock()
       player.equipped.attack()
       break;
     case 3:
