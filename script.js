@@ -73,9 +73,9 @@ function setup(){
   canvas.parent('sketch-holder')
   frameRate(5)
   strokeWeight(1)
-  demoImp = new enemy(8, 8, 1, {direction: 4, spriteSheet: impSs, spriteWidth: 84, spriteHeight: 122, activeArea: [8, 8, 21, 21]}, 900 * 42/61, 900)
-  greenImp = new enemy(11, 12, 5, {spriteSheet: greenImpSs, activeArea: [8, 8, 16, 16]}, 850 * 42/61, 850)
-  noEnemy = new enemy(0, 0, 5, {spriteSheet: blankSs}, 0, 0)
+  demoImp = new enemy(8, 8, 1, 2, {direction: 4, spriteSheet: impSs, spriteWidth: 84, spriteHeight: 122, activeArea: [8, 8, 21, 21]}, 900 * 42/61, 900)
+  greenImp = new enemy(11, 12, 5, 3, {spriteSheet: greenImpSs, activeArea: [8, 8, 16, 16]}, 850 * 42/61, 850)
+  //noEnemy = new enemy(0, 0, 5, {spriteSheet: blankSs}, 0, 0)
   amo = new entity(8, 8, {spriteSheet: amoSs, spriteWidth: 25, spriteHeight: 25, xFrame: 0, yFrame: 0, animation: 'c', inv: [5]}, 300, 300)
   rifle = new weapon('basic', gunSs, 4, 1, 0, 0)
   player = new playerClass([0, 0], 0, rifle, {})
@@ -105,11 +105,11 @@ function draw(){
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
-                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, fC, eW, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, eW, nW, fC, nW, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, sW, nW, wW, eW, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, wW, nW, eW, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
+                    [bk, bk, bk, bk, bk, bk, bk, bk, fC, sW, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
                     [bk, bk, bk, bk, bk, bk, bk, bk, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, fC, bk, bk, bk, bk, bk, bk, bk, bk],
@@ -160,7 +160,7 @@ function draw(){
       //currentMap[12][11].hasEnemy = true
       currentMap[8][8].enemy = demoImp
       //currentMap[12][11].enemy = greenImp
-      player.coords = [15, 15]
+      player.coords = [8, 9]
       player.direction = 0
       gamePart = 2
       demoImp.bfsToPlayer()
@@ -193,6 +193,7 @@ function draw(){
         else {
           demoImp.facePlayer()
           if (demoImp.direction - player.direction == 4 || demoImp.direction - player.direction == -4){
+            demoImp.frame = 0
             demoImp.animation = 'a'
           }
         }
@@ -205,6 +206,15 @@ function draw(){
       fill(neutralGrey)
       textSize(25)
       text('resume', 60, 125)
+      break;
+    case 4:
+      exitPointerLock()
+      text('YOU DIED', 512, 288)
+      fill(pureRed)
+      rect(10, 100, 100, 50)
+      fill(neutralGrey)
+      textSize(25)
+      text('respawn', 60, 125)
       break;
   }
 }
@@ -222,6 +232,12 @@ function mousePressed(){
       player.equipped.attack()
       break;
     case 3:
+      if (mouseX > 10 && mouseX < 110 && mouseY > 100 && mouseY < 150){
+        gamePart = 2
+        requestPointerLock()
+      }
+      break;
+    case 4:
       if (mouseX > 10 && mouseX < 110 && mouseY > 100 && mouseY < 150){
         gamePart = 2
         requestPointerLock()

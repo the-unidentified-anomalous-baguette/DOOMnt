@@ -157,11 +157,12 @@ class weapon{
 }
 
 class playerClass{
-    constructor(coords, direction, equipped, {inv = [5]}){
+    constructor(coords, direction, equipped, {inv = [5], hp = 6}){
         this.coords = coords
         this.direction = direction
         this.equipped = equipped
         this.inv = inv
+        this.hp = hp
     }
 
     eqpdCalc(){
@@ -449,9 +450,10 @@ class entity{
 }
 
 class enemy extends entity{
-  constructor(x, y, hp, {direction = 0, spriteSheet = impSs, spriteWidth = 42, spriteHeight = 61, walkFrames = 4, collHeight = 4, activeArea = [0, 0, 0, 0]}, renderWidth, renderHeight){
+  constructor(x, y, hp, damage, {direction = 0, spriteSheet = impSs, spriteWidth = 42, spriteHeight = 61, walkFrames = 4, collHeight = 4, activeArea = [0, 0, 0, 0]}, renderWidth, renderHeight){
       super(x, y, {direction: direction, spriteSheet: spriteSheet, spriteWidth: spriteWidth, spriteHeight: spriteHeight, solid: true}, renderWidth, renderHeight)
       this.hp = hp
+      this.damage = damage
       this.walkFrames = walkFrames
       this.animation = 'i'
       this.frame = 0
@@ -509,6 +511,25 @@ class enemy extends entity{
     }
     return false
   }
+  moveNorthEast(){
+    if (this.direction > 5 || this.direction < 1){
+      this.turnRight()
+    }
+    else if (this.direction > 1){
+      this.turnLeft()
+    }
+    else if (isMoveValid([this.y, this.x], 'north') && isMoveValid([this.y, this.x], 'east') && isMoveValid([this.y, this.x + 1], 'north') && isMoveValid([this.y - 1, this.x], 'east') && this.direction == 1){
+      currentMap[this.y][this.x].hasEnemy = 0
+      this.y -= 1
+      this.x += 1
+      currentMap[this.y][this.x].hasEnemy = 1
+      currentMap[this.y][this.x].enemy = this
+      this.frame += 1
+      if (this.frame >= 4){this.frame = 0}
+      return true
+    }
+    return false
+  }
   moveEast(){
     if (this.direction > 6 || this.direction < 2){
       this.turnRight()
@@ -518,6 +539,25 @@ class enemy extends entity{
     }
     else if (isMoveValid([this.y, this.x], 'east') && this.direction == 2){
       currentMap[this.y][this.x].hasEnemy = 0
+      this.x += 1
+      currentMap[this.y][this.x].hasEnemy = 1
+      currentMap[this.y][this.x].enemy = this
+      this.frame += 1
+      if (this.frame >= 4){this.frame = 0}
+      return true
+    }
+    return false
+  }
+  moveSouthEast(){
+    if (this.direction == 7 || this.direction < 3){
+      this.turnRight()
+    }
+    else if (this.direction > 3){
+      this.turnLeft()
+    }
+    else if (isMoveValid([this.y, this.x], 'south') && isMoveValid([this.y, this.x], 'east') && isMoveValid([this.y, this.x + 1], 'south') && isMoveValid([this.y + 1, this.x], 'east') && this.direction == 3){
+      currentMap[this.y][this.x].hasEnemy = 0
+      this.y += 1
       this.x += 1
       currentMap[this.y][this.x].hasEnemy = 1
       currentMap[this.y][this.x].enemy = this
@@ -545,6 +585,25 @@ class enemy extends entity{
     }
     return false
   }
+  moveSouthWest(){
+    if (this.direction < 5 && this.direction > 0){
+      this.turnRight()
+    }
+    else if (this.direction > 5 || this.direction < 1){
+      this.turnLeft()
+    }
+    else if (isMoveValid([this.y, this.x], 'south') && isMoveValid([this.y, this.x], 'west') && isMoveValid([this.y, this.x - 1], 'south') && isMoveValid([this.y + 1, this.x], 'west') && this.direction == 5){
+      currentMap[this.y][this.x].hasEnemy = 0
+      this.y += 1
+      this.x -= 1
+      currentMap[this.y][this.x].hasEnemy = 1
+      currentMap[this.y][this.x].enemy = this
+      this.frame += 1
+      if (this.frame >= 4){this.frame = 0}
+      return true
+    }
+    return false
+  }
   moveWest(){
     if (this.direction < 6 && this.direction >= 3){
       this.turnRight()
@@ -554,6 +613,25 @@ class enemy extends entity{
     }
     else if (isMoveValid([this.y, this.x], 'west') && this.direction == 6){
       currentMap[this.y][this.x].hasEnemy = 0
+      this.x -= 1
+      currentMap[this.y][this.x].hasEnemy = 1
+      currentMap[this.y][this.x].enemy = this
+      this.frame += 1
+      if (this.frame >= 4){this.frame = 0}
+      return true
+    }
+    return false
+  }
+  moveNorthWest(){
+    if (this.direction < 7 && this.direction > 3){
+      this.turnRight()
+    }
+    else if (this.direction < 4){
+      this.turnLeft()
+    }
+    else if (isMoveValid([this.y, this.x], 'north') && isMoveValid([this.y, this.x], 'west') && isMoveValid([this.y, this.x - 1], 'north') && isMoveValid([this.y - 1, this.x], 'west') && this.direction == 7){
+      currentMap[this.y][this.x].hasEnemy = 0
+      this.y -= 1
       this.x -= 1
       currentMap[this.y][this.x].hasEnemy = 1
       currentMap[this.y][this.x].enemy = this
@@ -644,6 +722,18 @@ class enemy extends entity{
               this.renderWidth * maxHpcnt, this.renderHeight * maxHpcnt, //how big to draw
               (relDir + 5) * this.spriteWidth, (this.frame + 3) * this.spriteHeight, //which part of spritesheet to take
               this.spriteWidth, this.spriteHeight) //how big the sprite being used is
+        this.frame += 1
+        if (this.frame == 2 && this.x == player.coords[1] && this.y == player.coords[0]){
+          player.hp -= this.damage
+          if (player.hp <= 0){
+            gamePart = 4
+          }
+        }
+        else if (this.frame == 3){
+          this.frame = 0
+          this.animation = 'm'
+        }
+        break;
     }
   }
 
@@ -681,10 +771,10 @@ class enemy extends entity{
       if (this.x == player.coords[1] && this.y == player.coords[0]){
         pathFound = 1
       }
-      while (pathFound == 0){
+      while (pathFound == 0){ //finding a path
         paths.push([])
         for (let i = 0; i < paths[paths.length - 2].length; i++){ //checking for new nodes
-          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'north')){
+          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'north')){ //checking if the north connected tile is free
             onDupe = false
             paths[paths.length - 1].push([paths[paths.length - 2][i][0] - 1, paths[paths.length - 2][i][1], i])
             if (paths[paths.length - 1][paths[paths.length - 1].length - 1][0] == player.coords[0] && paths[paths.length - 1][paths[paths.length - 1].length - 1][1] == player.coords[1]){
@@ -710,7 +800,7 @@ class enemy extends entity{
               }
             }
           }
-          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'east')){
+          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'east')){ //checking east tile
             onDupe = false
             paths[paths.length - 1].push([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1] + 1, i])
             if (paths[paths.length - 1][paths[paths.length - 1].length - 1][0] == player.coords[0] && paths[paths.length - 1][paths[paths.length - 1].length - 1][1] == player.coords[1]){
@@ -736,7 +826,7 @@ class enemy extends entity{
               }
             }
           }
-          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'south')){
+          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'south')){ //checking south tile
             onDupe = false
             paths[paths.length - 1].push([paths[paths.length - 2][i][0] + 1, paths[paths.length - 2][i][1], i])
             if (paths[paths.length - 1][paths[paths.length - 1].length - 1][0] == player.coords[0] && paths[paths.length - 1][paths[paths.length - 1].length - 1][1] == player.coords[1]){
@@ -762,9 +852,113 @@ class enemy extends entity{
               }
             }
           }
-          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'west')){
+          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'west')){ //checking west tile
             onDupe = false
             paths[paths.length - 1].push([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1] - 1, i])
+            if (paths[paths.length - 1][paths[paths.length - 1].length - 1][0] == player.coords[0] && paths[paths.length - 1][paths[paths.length - 1].length - 1][1] == player.coords[1]){
+              pathFound = 1
+              whichNode = paths[paths.length - 1].length - 1
+              break;
+            }
+            if (paths.length >= 3){
+              for (let j = 0; j < paths[paths.length - 3].length; j++){
+                if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  onDupe = true
+                  break;
+                }
+              }
+            }
+            if (onDupe == false){
+              for (let j = 0; j < paths[paths.length - 1].length - 2; j++){
+                if (paths[paths.length - 1][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 1][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  break;
+                }
+              }
+            }
+          }
+          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'north') && isMoveValid([paths[paths.length - 2][i][0] - 1, paths[paths.length - 2][i][1]], 'east') && isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'east') && isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1] + 1], 'north')){ //checking north east tile
+            onDupe = false
+            paths[paths.length - 1].push([paths[paths.length - 2][i][0] - 1, paths[paths.length - 2][i][1] + 1, i])
+            if (paths[paths.length - 1][paths[paths.length - 1].length - 1][0] == player.coords[0] && paths[paths.length - 1][paths[paths.length - 1].length - 1][1] == player.coords[1]){
+              pathFound = 1
+              whichNode = paths[paths.length - 1].length - 1
+              break;
+            }
+            if (paths.length >= 3){
+              for (let j = 0; j < paths[paths.length - 3].length; j++){
+                if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  onDupe = true
+                  break;
+                }
+              }
+            }
+            if (onDupe == false){
+              for (let j = 0; j < paths[paths.length - 1].length - 2; j++){
+                if (paths[paths.length - 1][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 1][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  break;
+                }
+              }
+            }
+          }
+          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'south') && isMoveValid([paths[paths.length - 2][i][0] + 1, paths[paths.length - 2][i][1]], 'east') && isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'east') && isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1] + 1], 'south')){ //checking south east tile
+            onDupe = false
+            paths[paths.length - 1].push([paths[paths.length - 2][i][0] + 1, paths[paths.length - 2][i][1] + 1, i])
+            if (paths[paths.length - 1][paths[paths.length - 1].length - 1][0] == player.coords[0] && paths[paths.length - 1][paths[paths.length - 1].length - 1][1] == player.coords[1]){
+              pathFound = 1
+              whichNode = paths[paths.length - 1].length - 1
+              break;
+            }
+            if (paths.length >= 3){
+              for (let j = 0; j < paths[paths.length - 3].length; j++){
+                if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  onDupe = true
+                  break;
+                }
+              }
+            }
+            if (onDupe == false){
+              for (let j = 0; j < paths[paths.length - 1].length - 2; j++){
+                if (paths[paths.length - 1][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 1][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  break;
+                }
+              }
+            }
+          }
+          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'south') && isMoveValid([paths[paths.length - 2][i][0] + 1, paths[paths.length - 2][i][1]], 'west') && isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'west') && isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1] - 1], 'south')){ //checking south west tile
+            onDupe = false
+            paths[paths.length - 1].push([paths[paths.length - 2][i][0] + 1, paths[paths.length - 2][i][1] - 1, i])
+            if (paths[paths.length - 1][paths[paths.length - 1].length - 1][0] == player.coords[0] && paths[paths.length - 1][paths[paths.length - 1].length - 1][1] == player.coords[1]){
+              pathFound = 1
+              whichNode = paths[paths.length - 1].length - 1
+              break;
+            }
+            if (paths.length >= 3){
+              for (let j = 0; j < paths[paths.length - 3].length; j++){
+                if (paths[paths.length - 3][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 3][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  onDupe = true
+                  break;
+                }
+              }
+            }
+            if (onDupe == false){
+              for (let j = 0; j < paths[paths.length - 1].length - 2; j++){
+                if (paths[paths.length - 1][j][0] == paths[paths.length - 1][paths[paths.length - 1].length - 1][0] && paths[paths.length - 1][j][1] == paths[paths.length - 1][paths[paths.length - 1].length - 1][1]){
+                  paths[paths.length - 1].pop()
+                  break;
+                }
+              }
+            }
+          }
+          if (isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'north') && isMoveValid([paths[paths.length - 2][i][0] - 1, paths[paths.length - 2][i][1]], 'west') && isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1]], 'west') && isMoveValid([paths[paths.length - 2][i][0], paths[paths.length - 2][i][1] - 1], 'north')){ //checking north west tile
+            onDupe = false
+            paths[paths.length - 1].push([paths[paths.length - 2][i][0] - 1, paths[paths.length - 2][i][1] - 1, i])
             if (paths[paths.length - 1][paths[paths.length - 1].length - 1][0] == player.coords[0] && paths[paths.length - 1][paths[paths.length - 1].length - 1][1] == player.coords[1]){
               pathFound = 1
               whichNode = paths[paths.length - 1].length - 1
@@ -813,13 +1007,27 @@ class enemy extends entity{
     if (dY == -1 && dX == 0){
       hasMoved = this.moveNorth()
     }
+    else if (dY == -1 && dX == 1){
+      hasMoved = this.moveNorthEast()
+    }
     else if (dY == 0 && dX == 1){
       hasMoved = this.moveEast()
+    }
+    else if (dY == 1 && dX == 1){
+      hasMoved = this.moveSouthEast()
     }
     else if (dY == 1 && dX == 0){
       hasMoved = this.moveSouth()
     }
-    else {hasMoved = this.moveWest()}
+    else if (dY == 1 && dX == -1){
+      hasMoved = this.moveSouthWest()
+    }
+    else if (dY == 0 && dX == -1){
+      hasMoved = this.moveWest()
+    }
+    else {
+      hasMoved = this.moveNorthWest()
+    }
     if (hasMoved == true){
       this.path.shift()
     }
